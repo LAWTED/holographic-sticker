@@ -1,6 +1,6 @@
 {
   "name": "hologram-sticker",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "type": "module",
   "description": "A React component library for creating holographic sticker effects",
   "main": "dist/index.js",
