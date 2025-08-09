@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "npm run copy-source && next dev",
+    "build": "npm run copy-source && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "copy-source": "node scripts/copy-source.js"
   },
   "dependencies": {
     "hologram-sticker": "*",

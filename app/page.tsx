@@ -31,15 +31,11 @@ export default function Home() {
     // 动态加载各个页面的源代码
     const loadSourceCode = async () => {
       try {
-        const lightningStickerCode = await fetch(
-          "/api/source/lightning-sticker"
-        ).then((r) => r.text());
-        const ogStickerCode = await fetch("/api/source/OG-Sticker").then((r) =>
-          r.text()
-        );
-        const lawtedStickerCode = await fetch(
-          "/api/source/lawted-sticker"
-        ).then((r) => r.text());
+        const [lightningStickerCode, ogStickerCode, lawtedStickerCode] = await Promise.all([
+          fetch("/api/source/lightning-sticker").then((r) => r.text()),
+          fetch("/api/source/OG-Sticker").then((r) => r.text()),
+          fetch("/api/source/lawted-sticker").then((r) => r.text())
+        ]);
 
         setSourceCode({
           "lightning-sticker": lightningStickerCode,
@@ -48,50 +44,10 @@ export default function Home() {
         });
       } catch (error) {
         console.error("Failed to load source code:", error);
-        // Fallback to static code if API fails
         setSourceCode({
-          "lightning-sticker": `"use client";
-import HologramSticker from "hologram-sticker";
-
-const LightningSticker = () => {
-  return (
-    <HologramSticker.Root>
-      <HologramSticker.Controls />
-      <HologramSticker.Minimap />
-      <HologramSticker.Scene>
-        <HologramSticker.Card className="border border-white rounded-2xl">
-          <HologramSticker.ImageLayer
-            src="/light.png"
-            alt="Lightning"
-            objectFit="contain"
-          />
-          <HologramSticker.Pattern
-            maskUrl="/light.png"
-            maskSize="contain"
-            textureUrl="https://assets.codepen.io/605876/figma-texture.png"
-            textureSize="6cqi"
-            mixBlendMode="hard-light"
-            opacity={0.7}
-          >
-            <HologramSticker.Refraction intensity={2} />
-          </HologramSticker.Pattern>
-          <HologramSticker.Content>
-            <HologramSticker.ImageLayer
-              src="/light.png"
-              alt=""
-              opacity={0.2}
-              objectFit="contain"
-            />
-          </HologramSticker.Content>
-        </HologramSticker.Card>
-      </HologramSticker.Scene>
-    </HologramSticker.Root>
-  );
-};
-
-export default LightningSticker;`,
-          "og-sticker": "",
-          "lawted-sticker": "",
+          "lightning-sticker": "// Loading error - please refresh the page",
+          "og-sticker": "// Loading error - please refresh the page",
+          "lawted-sticker": "// Loading error - please refresh the page",
         });
       }
     };
