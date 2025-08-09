@@ -1,0 +1,30 @@
+# Source files
+src/
+examples/
+*.config.js
+*.config.ts
+tsconfig.json
+
+# Development files
+.gitignore
+.eslintrc*
+.prettierrc*
+jest.config.*
+
+# Documentation (keep README.md)
+docs/
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Tests
+__tests__/
+*.test.*
+*.spec.*
+
+# Coverage
+coverage/

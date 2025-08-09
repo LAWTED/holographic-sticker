@@ -1,0 +1,188 @@
+/* Root variables */
+:root {
+  --card-width: 260px;
+  --rotate-x: 35deg;
+  --rotate-y: -30deg;
+}
+
+/* Base styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+.sticker-card,
+.sticker-card * {
+  transform-style: preserve-3d;
+}
+
+/* 移除全局 body 样式，避免与 Next.js 冲突 */
+
+/* Scene - for compatibility with original light-sticker */
+.scene {
+  perspective: 1000px;
+  position: fixed;
+  inset: 0;
+  transform: translate3d(0, 0, 100vmin);
+}
+
+/* Holographic Sticker */
+.sticker-card {
+  --border: 8cqi;
+  aspect-ratio: 3 / 4;
+  width: calc(var(--card-width) * 0.8);
+  container-type: inline-size;
+  touch-action: none;
+  background: transparent;
+  perspective: 1600px;
+  position: relative;
+  display: block;
+  transition: transform 0.2s;
+  transform-style: preserve-3d;
+  overflow: visible;
+}
+
+.sticker-card:hover {
+  /* 3D transform now handled by Framer Motion */
+}
+
+.sticker-card:hover .sticker-image {
+  opacity: 1 !important;
+}
+
+@keyframes set {
+  0% {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+}
+
+.sticker-card:hover .refraction {
+  opacity: 1;
+}
+
+.sticker-card:hover .sticker-pattern {
+  opacity: 1 !important;
+}
+
+/* Sticker Content */
+.sticker-content {
+  position: absolute;
+  inset: 0;
+}
+
+/* Sticker Background */
+.sticker-background {
+  position: absolute;
+  inset: 0;
+}
+
+/* Sticker Pattern */
+.sticker-pattern {
+  position: absolute;
+  inset: 0;
+  /* 内置动态样式 - 使用 CSS 变量实现灵活配置 */
+  filter: saturate(0.8) contrast(1) brightness(1);
+  mask:
+    var(--pattern-image-url, url(/light.png)) 50% 50% / contain no-repeat,
+    var(--pattern-texture-url, url(https://assets.codepen.io/605876/figma-texture.png)) 50% 50% / 6cqi 6cqi;
+  mask-composite: intersect;
+  opacity: 0.4;
+  mix-blend-mode: hard-light;
+}
+
+/* Sticker Overlay */
+.sticker-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.sticker-image {
+  object-fit: contain !important;
+  filter: brightness(1.0) drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));
+}
+
+.sticker-overlay-image {
+  object-fit: contain !important;
+  opacity: 0.2;
+  filter: brightness(1.2) drop-shadow(0 0 10px rgba(255, 255, 255, 0.1));
+}
+
+.sticker-pattern::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: hsl(0 0% 80%);
+}
+
+/* Sticker Pattern Refraction */
+.sticker-pattern .refraction {
+  position: absolute;
+  width: 500%;
+  aspect-ratio: 1 / 1;
+  bottom: 0;
+  left: 0;
+  filter: saturate(2);
+  will-change: translate, scale, filter;
+  background: radial-gradient(
+    circle at 0 100%,
+    transparent 10%,
+    hsl(5 100% 80%),
+    hsl(150 100% 60%),
+    hsl(220 90% 70%),
+    transparent 60%
+  );
+  transform-origin: 0 100%;
+  scale: min(1, calc(0.15 + var(--sticker-pointer-x) * 0.25));
+  translate: clamp(-10%, calc(-10% + var(--sticker-pointer-x) * 10%), 10%)
+            calc(max(0%, var(--sticker-pointer-y) * -1 * 10%));
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+}
+
+.sticker-pattern .refraction:nth-of-type(2) {
+  bottom: unset;
+  top: 0;
+  left: unset;
+  right: 0;
+  scale: min(1, calc(0.15 + var(--sticker-pointer-x) * -0.65));
+  translate: clamp(-10%, calc(10% - var(--sticker-pointer-x) * -10%), 10%)
+            calc(min(0%, var(--sticker-pointer-y) * -10%));
+  transform-origin: 100% 0;
+  background: radial-gradient(
+    circle at 100% 0,
+    transparent 10%,
+    hsl(5 100% 80%),
+    hsl(150 100% 60%),
+    hsl(220 90% 70%),
+    transparent 60%
+  );
+}
+
+.sticker-card:hover .sticker-pattern .refraction {
+  opacity: 1;
+}
+
+/* Initial animations for sticker */
+.sticker-image,
+.sticker-pattern,
+.sticker-overlay {
+  opacity: 0;
+}
+
+.sticker-image {
+  animation: fadeIn 0.5s 0.2s forwards;
+}
+
+.sticker-pattern {
+  animation: fadeIn 0.5s 0.4s forwards;
+}
+
+.sticker-overlay {
+  animation: fadeIn 0.5s 0.6s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}

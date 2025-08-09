@@ -1,0 +1,60 @@
+{
+  "name": "hologram-sticker",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A React component library for creating holographic sticker effects",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/types.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "build:watch": "rollup -c -w",
+    "dev": "rollup -c -w",
+    "prepublishOnly": "npm run build",
+    "test": "echo \"No tests yet\" && exit 0"
+  },
+  "keywords": [
+    "react",
+    "hologram",
+    "sticker",
+    "3d",
+    "ui",
+    "components",
+    "holographic",
+    "card",
+    "effects"
+  ],
+  "author": "Lawted Wu",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lawtedwu/hologram-sticker.git"
+  },
+  "homepage": "https://github.com/lawtedwu/hologram-sticker#readme",
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rollup": "^4.9.6",
+    "rollup-plugin-dts": "^6.1.0",
+    "rollup-plugin-postcss": "^4.0.2",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@types/react-syntax-highlighter": "^15.5.13",
+    "framer-motion": "^12.23.12",
+    "react-syntax-highlighter": "^15.6.1"
+  }
+}
