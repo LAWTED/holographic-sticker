@@ -15,8 +15,7 @@ const Watermark: React.FC<WatermarkProps> = ({
   opacity = 1,
   ...props 
 }) => {
-  const { isActive } = useHologram();
-  
+  // 直接显示，无需等待active状态
   const style = {
     '--watermark-url': `url(${imageUrl})`,
     '--watermark-opacity': opacity,
@@ -24,7 +23,7 @@ const Watermark: React.FC<WatermarkProps> = ({
 
   return (
     <div
-      className={`sticker-watermark ${className} ${isActive ? 'active' : ''}`}
+      className={`sticker-watermark ${className}`}
       style={style}
       {...props}
     >

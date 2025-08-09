@@ -23,8 +23,7 @@ const Pattern: React.FC<PatternProps> = ({
   textureSize = '4cqi',
   ...props 
 }) => {
-  const { isActive } = useHologram();
-  
+  // 直接显示，无需等待active状态
   const style = {
     '--pattern-url': imageUrl ? `url(${imageUrl})` : `url(${textureUrl})`,
     '--pattern-opacity': opacity,
@@ -34,7 +33,7 @@ const Pattern: React.FC<PatternProps> = ({
 
   return (
     <div
-      className={`sticker-pattern ${className} ${isActive ? 'active' : ''}`}
+      className={`sticker-pattern ${className}`}
       style={style}
       {...props}
     >

@@ -1,5 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap');
+/* 移除@import，改为fallback字体，用户可以自行添加Google Fonts */
+
+/* 防FOUC - 防止无样式内容闪现 */
+.sticker-root {
+  opacity: 1;
+  visibility: visible;
+}
+
+.sticker-card {
+  max-width: var(--sticker-card-width, 260px);
+  max-height: calc(var(--sticker-card-width, 260px) * 7 / 5);
+}
+
+.sticker-img-layer img,
+.sticker-background img,
+.sticker-frame img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
 
 /* Root variables */
 :root {
@@ -58,7 +76,7 @@
   opacity: 0;
   position: absolute;
   font-size: 0.875rem;
-  font-family: 'Gloria Hallelujah', cursive;
+  font-family: 'Gloria Hallelujah', 'Comic Sans MS', cursive, sans-serif;
   transition: opacity 0.26s ease-out;
   color: white;
   top: 50%;
@@ -138,7 +156,7 @@
   position: absolute;
   top: 50%;
   left: 100%;
-  font-family: 'Sora', sans-serif;
+  font-family: 'Sora', system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif;
   transform: translate(-50%, -50%) rotate(-90deg) translateY(100%);
   font-size: 0.875rem;
   pointer-events: none;
@@ -169,7 +187,7 @@
   container-type: inline-size;
   background: transparent;
   color: hsl(0 0% 10%);
-  font-family: 'Sora', sans-serif;
+  font-family: 'Sora', system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif;
   perspective: 1600px;
   position: relative;
   display: block;
@@ -248,25 +266,9 @@
   rotate: 180deg y;
 }
 
-/* Card faces */
-.sticker-front,
-.sticker-back {
-  position: absolute;
-  inset: 0;
-  border-radius: var(--sticker-card-border-radius);
-  backface-visibility: hidden;
-}
-
-.sticker-front > *:not(.sticker-debug:not(.sticker-debug--clipped)) {
+/* Card content */
+.sticker-content > *:not(.sticker-debug:not(.sticker-debug--clipped)) {
   clip-path: inset(0 0 0 0 round var(--sticker-card-border-radius));
-}
-
-.sticker-back {
-  --back-color: oklch(28.55% 0.09665440679544547 265.51146531290146);
-  transform: rotateY(180deg) translate3d(0, 0, 1px);
-  background: color-mix(in oklch, var(--back-color), #000);
-  clip-path: inset(0 0 0 0 round var(--sticker-card-border-radius));
-  transform-style: preserve-3d;
 }
 
 /* Emboss effect */
@@ -319,8 +321,7 @@
   inset: 0;
   border-radius: var(--sticker-card-border-radius);
   clip-path: inset(0 0 0 0 round var(--sticker-card-border-radius));
-  opacity: 0;
-  transition: opacity 0.5s 1.4s;
+  opacity: 1; /* 直接显示，无需动画 */
 }
 
 .sticker-img-layer::before {
@@ -330,9 +331,7 @@
   background: transparent;
 }
 
-.sticker-img-layer.active {
-  opacity: 1;
-}
+/* 移除active状态切换，始终显示 */
 
 .sticker-img-layer img {
   width: 100%;
@@ -434,15 +433,12 @@
   border-radius: var(--sticker-card-border-radius);
   filter: saturate(0.9) contrast(1.1) brightness(1.2);
   mask: var(--watermark-url, url(https://assets.codepen.io/605876/shopify-pattern.svg)) 50% 50% / 14cqi 14cqi repeat;
-  opacity: 0;
+  opacity: var(--watermark-opacity, 1); /* 直接显示，无需动画 */
   mix-blend-mode: hard-light;
   clip-path: inset(0 0 0 0 round var(--sticker-card-border-radius));
-  transition: opacity 0.5s 1.4s;
 }
 
-.sticker-watermark.active {
-  opacity: var(--watermark-opacity, 1);
-}
+/* 移除active状态，始终显示 */
 
 .sticker-watermark::before {
   content: '';
@@ -517,13 +513,10 @@
   inset: 0;
   z-index: 2;
   border-radius: var(--sticker-card-border-radius);
-  opacity: 0;
-  transition: opacity 0.5s 2.2s;
+  opacity: 1; /* 直接显示，无需动画 */
 }
 
-.sticker-frame.active {
-  opacity: 1;
-}
+/* 移除active状态，始终显示 */
 
 .sticker-frame img {
   width: 100%;
@@ -673,7 +666,7 @@
   cursor: pointer;
   backdrop-filter: blur(10px);
   transition: all 0.2s;
-  font-family: 'Sora', sans-serif;
+  font-family: 'Sora', system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif;
 }
 
 .sticker-control-btn:hover {

@@ -2,8 +2,6 @@
 import Root from './components/Root';
 import Scene from './components/Scene';
 import Card from './components/Card';
-import Front from './components/Front';
-import Back from './components/Back';
 import Background from './components/Background';
 import ImageLayer from './components/ImageLayer';
 import DebugLayer from './components/DebugLayer';
@@ -32,8 +30,6 @@ const HologramSticker = {
   Root,
   Scene,
   Card,
-  Front,
-  Back,
   Background,
   ImageLayer,
   DebugLayer,
@@ -57,8 +53,6 @@ export type {
   RootProps,
   SceneProps,
   CardProps,
-  FrontProps,
-  BackProps,
   BackgroundProps,
   ImageLayerProps,
   DebugLayerProps,

@@ -6,7 +6,6 @@ export interface CardProps {
   className?: string;
   width?: number;
   aspectRatio?: number;
-  onFlip?: (flipped: boolean) => void;
 }
 
 const Card = forwardRef<HTMLElement, CardProps>(({ 
@@ -14,23 +13,13 @@ const Card = forwardRef<HTMLElement, CardProps>(({
   className = '', 
   width,
   aspectRatio,
-  onFlip,
   ...props 
 }, ref) => {
   const { 
     isActive, 
-    isFlipped, 
-    setIsFlipped, 
     isExploded, 
     cardRef 
   } = useHologram();
-
-  const handleFlip = () => {
-    if (!isActive || isExploded) return;
-    const newFlipped = !isFlipped;
-    setIsFlipped(newFlipped);
-    onFlip?.(newFlipped);
-  };
 
   const cardStyle = {
     ...(width && { width: `${width}px` }),
@@ -45,17 +34,9 @@ const Card = forwardRef<HTMLElement, CardProps>(({
       }`}
       style={cardStyle}
       data-active={isActive}
-      data-flipped={isFlipped}
       {...props}
     >
-      <button
-        className="sticker-flip-button"
-        aria-label="Flip card"
-        aria-pressed={isFlipped}
-        onClick={handleFlip}
-        type="button"
-      />
-      <div className={`sticker-content ${isFlipped ? 'flipped' : ''}`}>
+      <div className="sticker-content">
         {children}
       </div>
     </article>

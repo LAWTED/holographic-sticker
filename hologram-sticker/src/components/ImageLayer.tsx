@@ -13,11 +13,10 @@ const ImageLayer: React.FC<ImageLayerProps> = ({
   className = '', 
   ...props 
 }) => {
-  const { isActive } = useHologram();
-
+  // 直接显示，无需等待active状态
   return (
     <div
-      className={`sticker-img-layer ${className} ${isActive ? 'active' : ''}`}
+      className={`sticker-img-layer ${className}`}
       {...props}
     >
       <img src={src} alt={alt} />

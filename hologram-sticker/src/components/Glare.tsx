@@ -11,15 +11,12 @@ const Glare: React.FC<GlareProps> = ({
   animate = true, 
   ...props 
 }) => {
-  const { isActive, showGlare } = useHologram();
-
-  if (!showGlare && animate) return null;
+  // Glare动画独立运行，不依赖isActive状态
+  if (!animate) return null;
 
   return (
     <div className={`sticker-glare-container ${className}`} {...props}>
-      <div
-        className={`sticker-glare ${animate && !isActive ? 'animate' : ''}`}
-      />
+      <div className="sticker-glare animate" />
     </div>
   );
 };

@@ -11,11 +11,10 @@ const Spotlight: React.FC<SpotlightProps> = ({
   intensity = 1,
   ...props 
 }) => {
-  const { isActive } = useHologram();
-
+  // 直接显示，无需等待active状态
   return (
     <div
-      className={`sticker-spotlight ${className} ${isActive ? 'active' : ''}`}
+      className={`sticker-spotlight ${className}`}
       style={{ '--spotlight-intensity': intensity } as React.CSSProperties}
       {...props}
     />

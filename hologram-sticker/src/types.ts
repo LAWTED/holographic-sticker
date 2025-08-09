@@ -17,19 +17,9 @@ export interface CardProps {
   className?: string;
   width?: number;
   aspectRatio?: number;
-  onFlip?: (flipped: boolean) => void;
 }
 
-export interface FrontProps {
-  children: ReactNode;
-  className?: string;
-}
 
-export interface BackProps {
-  children: ReactNode;
-  className?: string;
-  emboss?: boolean;
-}
 
 export interface BackgroundProps {
   children?: ReactNode;

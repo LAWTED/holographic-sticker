@@ -55,6 +55,7 @@
   "dependencies": {
     "@types/react-syntax-highlighter": "^15.5.13",
     "framer-motion": "^12.23.12",
+    "hologram-sticker": "file:hologram-sticker-1.0.0.tgz",
     "react-syntax-highlighter": "^15.6.1"
   }
 }

@@ -13,13 +13,12 @@ const Frame: React.FC<FrameProps> = ({
   emboss = true, 
   ...props 
 }) => {
-  const { isActive } = useHologram();
-
+  // 直接显示，无需等待active状态
   return (
     <div
       className={`sticker-frame ${
         emboss ? 'sticker-emboss' : ''
-      } ${className} ${isActive ? 'active' : ''}`}
+      } ${className}`}
       {...props}
     >
       {children}

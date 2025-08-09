@@ -3,8 +3,6 @@ import React, { createContext, useContext, useState, useRef, useEffect, ReactNod
 // Context interface
 interface HologramContextType {
   isActive: boolean;
-  isFlipped: boolean;
-  setIsFlipped: (flipped: boolean) => void;
   isExploded: boolean;
   setIsExploded: (exploded: boolean) => void;
   pointerPos: { x: string; y: string };
@@ -41,8 +39,7 @@ export const HologramProvider: React.FC<HologramProviderProps> = ({
   children, 
   theme = 'dark' 
 }) => {
-  const [isActive, setIsActive] = useState(false);
-  const [isFlipped, setIsFlipped] = useState(false);
+  const [isActive, setIsActive] = useState(true); // 立即激活，无需等待动画
   const [isExploded, setIsExploded] = useState(false);
   const [pointerPos, setPointerPos] = useState({ x: '0', y: '0' });
   const [showGlare, setShowGlare] = useState(true);
@@ -51,17 +48,7 @@ export const HologramProvider: React.FC<HologramProviderProps> = ({
   const sceneRef = useRef<HTMLDivElement>(null);
   const rootRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    // Match original animation timing
-    const totalDelay = 3000; // 3 seconds total delay
-
-    const timer = setTimeout(() => {
-      setShowGlare(false);
-      setIsActive(true);
-    }, totalDelay);
-
-    return () => clearTimeout(timer);
-  }, []);
+  // 移除入场动画延迟，组件立即可用
 
   useEffect(() => {
     const handlePointerMove = (e: PointerEvent) => {
@@ -95,18 +82,17 @@ export const HologramProvider: React.FC<HologramProviderProps> = ({
       }
     };
 
-    document.addEventListener("pointermove", handlePointerMove);
-
-    // Set initial light position for this instance
-    const centerX = window.innerWidth / 2;
-    const centerY = window.innerHeight / 2;
-    const fePointLight = rootRef.current?.querySelector("fePointLight");
-    if (fePointLight) {
-      fePointLight.setAttribute("x", centerX.toString());
-      fePointLight.setAttribute("y", centerY.toString());
+    // 只在卡片元素上监听事件，而不是全局监听
+    const element = isExploded ? minimapRef.current : cardRef.current;
+    if (element) {
+      element.addEventListener("pointermove", handlePointerMove as EventListener);
     }
 
-    return () => document.removeEventListener("pointermove", handlePointerMove);
+    return () => {
+      if (element) {
+        element.removeEventListener("pointermove", handlePointerMove as EventListener);
+      }
+    };
   }, [isActive, isExploded]);
 
   useEffect(() => {
@@ -119,8 +105,6 @@ export const HologramProvider: React.FC<HologramProviderProps> = ({
 
   const contextValue: HologramContextType = {
     isActive,
-    isFlipped,
-    setIsFlipped,
     isExploded,
     setIsExploded,
     pointerPos,
