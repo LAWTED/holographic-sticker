@@ -115,11 +115,21 @@ export interface OverlayProps {
   opacity?: number;
 }
 
+
 export interface PointerPosition {
-  x: number;
-  y: number;
+  x: string;
+  y: string;
 }
 
 export interface HologramContextType {
-  pointerPosition: PointerPosition;
+  isActive: boolean;
+  isExploded: boolean;
+  setIsExploded: (exploded: boolean) => void;
+  pointerPos: PointerPosition;
+  showGlare: boolean;
+  cardRef: React.RefObject<HTMLElement>;
+  minimapRef: React.RefObject<HTMLDivElement>;
+  sceneRef: React.RefObject<HTMLDivElement>;
+  rootRef: React.RefObject<HTMLDivElement>;
+  theme: 'light' | 'dark' | 'system';
 }

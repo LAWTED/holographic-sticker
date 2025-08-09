@@ -17,48 +17,6 @@ const NpmVaulLike = () => {
           "'SF Pro Text', 'SF Pro Icons', 'AOS Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif, system-ui",
       }}
     >
-      <div
-        style={{
-          content: "",
-          height: "100vh",
-          width: "100vw",
-          position: "fixed",
-          background: `
-            radial-gradient(
-              1px 1px at 20px 30px,
-              #fff4,
-              transparent
-            ),
-            radial-gradient(
-              1px 1px at 40px 70px,
-              #fff4,
-              transparent
-            ),
-            radial-gradient(
-              1px 1px at 90px 40px,
-              #fff4,
-              transparent
-            ),
-            radial-gradient(
-              1px 1px at 130px 80px,
-              #fff4,
-              transparent
-            ),
-            radial-gradient(
-              2px 2px at 160px 30px,
-              #fff4,
-              transparent
-            )
-          `,
-          backgroundRepeat: "repeat",
-          backgroundSize: "200px 100px",
-          top: 0,
-          transformStyle: "flat",
-          pointerEvents: "none",
-          zIndex: -1,
-        }}
-      />
-
       <HologramSticker.Root theme="dark">
         {/* <HologramSticker.Controls />
         <HologramSticker.Minimap /> */}
@@ -176,7 +134,7 @@ const NpmVaulLike = () => {
             <HologramSticker.Glare animate />
           </HologramSticker.Card>
         </HologramSticker.Scene>
-        <HologramSticker.Filters />
+        {/* <HologramSticker.Filters /> */}
       </HologramSticker.Root>
 
       <HologramSticker.Root theme="dark">
@@ -224,7 +182,7 @@ const NpmVaulLike = () => {
             <HologramSticker.Glare animate />
           </HologramSticker.Card>
         </HologramSticker.Scene>
-        <HologramSticker.Filters />
+        {/* <HologramSticker.Filters /> */}
       </HologramSticker.Root>
     </div>
   );

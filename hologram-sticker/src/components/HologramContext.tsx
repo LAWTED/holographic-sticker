@@ -74,12 +74,6 @@ export const HologramProvider: React.FC<HologramProviderProps> = ({
         rootRef.current.style.setProperty("--sticker-pointer-y", pointerY.toString());
       }
 
-      // Update lighting position for SVG filters within this instance
-      const fePointLight = rootRef.current?.querySelector("fePointLight");
-      if (fePointLight) {
-        fePointLight.setAttribute("x", Math.floor(posX).toString());
-        fePointLight.setAttribute("y", Math.floor(posY).toString());
-      }
     };
 
     // 只在卡片元素上监听事件，而不是全局监听
