@@ -1,52 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap');
+
 /* Root variables */
 :root {
-  --card-width: 260px;
-  --rotate-x: 35deg;
-  --rotate-y: -30deg;
+  --sticker-card-width: 260px;
+  --sticker-card-border-radius: 8cqi;
+  --sticker-pointer-x: 0;
+  --sticker-pointer-y: 0;
+  --sticker-parallax-img-x: 5%;
+  --sticker-parallax-img-y: 5%;
+  --sticker-rotate-x: 25deg;
+  --sticker-rotate-y: -20deg;
+  --sticker-border-color: hsl(0 0% 25%);
 }
 
 /* Base styles */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
-}
-
-.sticker-card,
-.sticker-card * {
   transform-style: preserve-3d;
 }
 
-/* 移除全局 body 样式，避免与 Next.js 冲突 */
+/* Utilities */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
 
-/* Scene - for compatibility with original light-sticker */
-.scene {
+/* Root container */
+.sticker-root {
+  position: relative;
+  width: 100%;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Scene */
+.sticker-scene {
   perspective: 1000px;
-  position: fixed;
-  inset: 0;
+  position: relative;
   transform: translate3d(0, 0, 100vmin);
 }
 
-/* Holographic Sticker */
+/* Arrow indicator */
+.sticker-arrow {
+  display: inline-block;
+  opacity: 0;
+  position: absolute;
+  font-size: 0.875rem;
+  font-family: 'Gloria Hallelujah', cursive;
+  transition: opacity 0.26s ease-out;
+  color: white;
+  top: 50%;
+  left: 50%;
+  rotate: 10deg;
+  translate: calc(-40% + var(--sticker-card-width) * -1) 0;
+  width: 80px;
+  z-index: 99999;
+}
+
+.sticker-arrow.visible {
+  opacity: 0.8;
+}
+
+.sticker-arrow span {
+  display: inline-block;
+  rotate: -24deg;
+  translate: 30% 100%;
+}
+
+.sticker-arrow svg {
+  rotate: 10deg;
+  scale: 1 -1;
+  translate: 120% 20%;
+  rotate: -25deg;
+  left: 0%;
+  width: 80%;
+}
+
+[data-explode='true'] .sticker-arrow {
+  opacity: 0;
+}
+
+@media (max-width: 580px) {
+  .sticker-arrow {
+    translate: -50% calc(var(--sticker-card-width) * 7 / 5 * 0.5);
+  }
+
+  .sticker-arrow span {
+    translate: 80% 160%;
+  }
+
+  .sticker-arrow svg {
+    rotate: 190deg;
+    top: unset;
+    bottom: 100%;
+    translate: 0 0;
+  }
+}
+
+/* Minimap */
+.sticker-minimap {
+  position: fixed;
+  width: 60px;
+  aspect-ratio: 5/7;
+  background: hsl(0 0% 50%);
+  top: 50%;
+  left: 50%;
+  translate: calc(var(--sticker-card-width) * 1) -50%;
+  border-radius: 6px;
+  cursor: pointer;
+  border: var(--sticker-border-color) 4px solid;
+  z-index: 999999;
+  transform: translate3d(0, 0, 100vmin);
+  pointer-events: none;
+  visibility: hidden;
+  transition: all 0.3s;
+}
+
+.sticker-minimap.visible {
+  pointer-events: all;
+  visibility: visible;
+}
+
+.sticker-minimap::after {
+  content: 'trackpad';
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  font-family: 'Sora', sans-serif;
+  transform: translate(-50%, -50%) rotate(-90deg) translateY(100%);
+  font-size: 0.875rem;
+  pointer-events: none;
+  opacity: 0.35;
+}
+
+.sticker-minimap__stats {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  opacity: 0.7;
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: white;
+}
+
+.sticker-minimap__stats span {
+  white-space: nowrap;
+}
+
+/* Card */
 .sticker-card {
-  --border: 8cqi;
-  aspect-ratio: 3 / 4;
-  width: calc(var(--card-width) * 0.8);
+  aspect-ratio: 5 / 7;
+  width: var(--sticker-card-width);
   container-type: inline-size;
-  touch-action: none;
   background: transparent;
+  color: hsl(0 0% 10%);
+  font-family: 'Sora', sans-serif;
   perspective: 1600px;
   position: relative;
   display: block;
+}
+
+.sticker-card img,
+.sticker-card *::after,
+.sticker-card *::before {
+  will-change: translate, scale, filter;
+}
+
+.sticker-card.active {
   transition: transform 0.2s;
-  transform-style: preserve-3d;
-  overflow: visible;
 }
 
-.sticker-card:hover {
-  /* 3D transform now handled by Framer Motion */
-}
-
-.sticker-card:hover .sticker-image {
-  opacity: 1 !important;
+[data-explode='false'] .sticker-card.active:hover {
+  transition: transform 0s;
+  transform: rotateX(calc(var(--sticker-pointer-y) * var(--sticker-rotate-x)))
+            rotateY(calc(var(--sticker-pointer-x) * var(--sticker-rotate-y)));
+  animation: set backwards 0.2s;
 }
 
 @keyframes set {
@@ -55,56 +198,226 @@
   }
 }
 
-.sticker-card:hover .refraction {
-  opacity: 1;
+.sticker-card:not(:hover) img {
+  transition: translate 0.2s;
 }
 
-.sticker-card:hover .sticker-pattern {
-  opacity: 1 !important;
+/* Exploded view */
+.sticker-card.exploded {
+  pointer-events: none;
+  transition: transform 0.2s 0.2s;
+  transform: rotateX(-24deg) rotateY(32deg) rotateX(90deg);
 }
 
-/* Sticker Content */
+[data-explode='true'] .sticker-card .sticker-spotlight,
+[data-explode='true'] .sticker-card .sticker-watermark,
+[data-explode='true'] .sticker-card .sticker-pattern {
+  mix-blend-mode: unset;
+}
+
+/* Flip button */
+.sticker-flip-button {
+  position: absolute;
+  z-index: 100;
+  inset: 0;
+  cursor: pointer;
+  opacity: 0;
+  background: none;
+  border: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sticker-card * {
+  pointer-events: none;
+}
+
+.sticker-flip-button {
+  pointer-events: all;
+}
+
+/* Content wrapper */
 .sticker-content {
+  transition: rotate 0.26s ease-out;
+  transform-style: preserve-3d;
   position: absolute;
   inset: 0;
+  border-radius: var(--sticker-card-border-radius);
 }
 
-/* Sticker Background */
+.sticker-content.flipped {
+  rotate: 180deg y;
+}
+
+/* Card faces */
+.sticker-front,
+.sticker-back {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--sticker-card-border-radius);
+  backface-visibility: hidden;
+}
+
+.sticker-front > *:not(.sticker-debug:not(.sticker-debug--clipped)) {
+  clip-path: inset(0 0 0 0 round var(--sticker-card-border-radius));
+}
+
+.sticker-back {
+  --back-color: oklch(28.55% 0.09665440679544547 265.51146531290146);
+  transform: rotateY(180deg) translate3d(0, 0, 1px);
+  background: color-mix(in oklch, var(--back-color), #000);
+  clip-path: inset(0 0 0 0 round var(--sticker-card-border-radius));
+  transform-style: preserve-3d;
+}
+
+/* Emboss effect */
+.sticker-emboss {
+  filter: url(#sticker-lighting);
+  position: relative;
+}
+
+.sticker-emboss::before {
+  content: 'TechTrades © 2025';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  height: calc(var(--sticker-card-border-radius) * 0.5);
+  display: flex;
+  place-items: center;
+  translate: -50% 0;
+  color: #fff;
+  font-size: 1.5cqi;
+  opacity: 0.8;
+  z-index: 100;
+}
+
+.sticker-emboss::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border: calc((var(--sticker-card-border-radius) * 0.5) + 1px) solid var(--sticker-border-color);
+  border-radius: var(--sticker-card-border-radius);
+  z-index: 99;
+}
+
+/* Background */
 .sticker-background {
   position: absolute;
   inset: 0;
+  border-radius: var(--sticker-card-border-radius);
 }
 
-/* Sticker Pattern */
+.sticker-background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--sticker-card-border-radius);
+}
+
+/* Image layer */
+.sticker-img-layer {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--sticker-card-border-radius);
+  clip-path: inset(0 0 0 0 round var(--sticker-card-border-radius));
+  opacity: 0;
+  transition: opacity 0.5s 1.4s;
+}
+
+.sticker-img-layer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: transparent;
+}
+
+.sticker-img-layer.active {
+  opacity: 1;
+}
+
+.sticker-img-layer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  scale: 1.1;
+  filter: brightness(0.85);
+  transition: translate 0.2s;
+  position: absolute;
+  inset: 0;
+}
+
+[data-explode='false'] .sticker-card.active:hover .sticker-img-layer img,
+[data-explode='true']:has(.sticker-minimap:hover) .sticker-img-layer img {
+  transition: transform 0s;
+  translate: calc(var(--sticker-pointer-x) * var(--sticker-parallax-img-x))
+            calc(var(--sticker-pointer-y) * var(--sticker-parallax-img-y));
+  animation: set-img backwards 0.2s;
+}
+
+[data-explode='false'] .sticker-card.active:hover .sticker-frame img,
+[data-explode='true']:has(.sticker-minimap:hover) .sticker-frame img {
+  transition: transform 0s;
+  translate: calc(var(--sticker-pointer-x) * var(--sticker-parallax-img-x))
+            calc(var(--sticker-pointer-y) * var(--sticker-parallax-img-y));
+  animation: set-img backwards 0.2s;
+}
+
+@keyframes set-img {
+  0% {
+    translate: 0 0;
+  }
+}
+
+/* Debug layers */
+.sticker-debug {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--sticker-card-border-radius);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.sticker-debug[data-visible="true"] {
+  visibility: visible;
+}
+
+.sticker-debug::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 4px dashed currentColor;
+  border-radius: var(--sticker-card-border-radius);
+}
+
+.sticker-debug--clipped {
+  clip-path: inset(0 0 0 0 round var(--sticker-card-border-radius));
+}
+
+.sticker-debug .sticker-refraction--debug {
+  opacity: 0.2;
+}
+
+.sticker-debug--clipped .sticker-refraction--debug {
+  opacity: 1;
+}
+
+[data-explode='true'] .sticker-debug {
+  visibility: visible;
+}
+
+[data-explode='true'] .sticker-debug:not(.sticker-debug--clipped) .sticker-refraction--debug {
+  opacity: 0.2;
+}
+
+/* Pattern */
 .sticker-pattern {
   position: absolute;
   inset: 0;
-  /* 内置动态样式 - 使用 CSS 变量实现灵活配置 */
+  border-radius: var(--sticker-card-border-radius);
   filter: saturate(0.8) contrast(1) brightness(1);
-  mask:
-    var(--pattern-image-url, url(/light.png)) 50% 50% / contain no-repeat,
-    var(--pattern-texture-url, url(https://assets.codepen.io/605876/figma-texture.png)) 50% 50% / 6cqi 6cqi;
-  mask-composite: intersect;
-  opacity: 0.4;
-  mix-blend-mode: hard-light;
-}
-
-/* Sticker Overlay */
-.sticker-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-}
-
-.sticker-image {
-  object-fit: contain !important;
-  filter: brightness(1.0) drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));
-}
-
-.sticker-overlay-image {
-  object-fit: contain !important;
-  opacity: 0.2;
-  filter: brightness(1.2) drop-shadow(0 0 10px rgba(255, 255, 255, 0.1));
+  mask: var(--pattern-url, url(https://assets.codepen.io/605876/figma-texture.png)) 50% 50% / var(--pattern-texture-size, 4cqi) var(--pattern-texture-size, 4cqi);
+  opacity: var(--pattern-opacity, 0.4);
+  mix-blend-mode: var(--pattern-mix-blend-mode, multiply);
+  clip-path: inset(0 0 0 0 round var(--sticker-card-border-radius));
 }
 
 .sticker-pattern::before {
@@ -114,15 +427,59 @@
   background: hsl(0 0% 80%);
 }
 
-/* Sticker Pattern Refraction */
-.sticker-pattern .refraction {
+/* Watermark */
+.sticker-watermark {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--sticker-card-border-radius);
+  filter: saturate(0.9) contrast(1.1) brightness(1.2);
+  mask: var(--watermark-url, url(https://assets.codepen.io/605876/shopify-pattern.svg)) 50% 50% / 14cqi 14cqi repeat;
+  opacity: 0;
+  mix-blend-mode: hard-light;
+  clip-path: inset(0 0 0 0 round var(--sticker-card-border-radius));
+  transition: opacity 0.5s 1.4s;
+}
+
+.sticker-watermark.active {
+  opacity: var(--watermark-opacity, 1);
+}
+
+.sticker-watermark::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: hsl(0 0% 100% / 0.2);
+}
+
+/* Refraction effects */
+.sticker-refraction,
+.sticker-spotlight::before {
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+}
+
+[data-explode='true']:has(.sticker-minimap:hover) .sticker-refraction,
+[data-explode='true']:has(.sticker-minimap:hover) .sticker-spotlight::before,
+.sticker-card.active:hover :not(.sticker-debug) .sticker-refraction,
+.sticker-card.active:hover .sticker-spotlight::before {
+  opacity: 1;
+}
+
+[data-explode='true']:has(.sticker-minimap:hover) .sticker-debug:not(.sticker-debug--clipped) .sticker-refraction {
+  opacity: 0.2;
+}
+
+.sticker-refraction {
   position: absolute;
   width: 500%;
   aspect-ratio: 1 / 1;
+  filter: saturate(calc(2 * var(--intensity, 1)));
+  will-change: translate, scale, filter;
+}
+
+.sticker-refraction-1 {
   bottom: 0;
   left: 0;
-  filter: saturate(2);
-  will-change: translate, scale, filter;
   background: radial-gradient(
     circle at 0 100%,
     transparent 10%,
@@ -135,19 +492,11 @@
   scale: min(1, calc(0.15 + var(--sticker-pointer-x) * 0.25));
   translate: clamp(-10%, calc(-10% + var(--sticker-pointer-x) * 10%), 10%)
             calc(max(0%, var(--sticker-pointer-y) * -1 * 10%));
-  opacity: 0;
-  transition: opacity 0.2s ease-out;
 }
 
-.sticker-pattern .refraction:nth-of-type(2) {
-  bottom: unset;
+.sticker-refraction-2 {
   top: 0;
-  left: unset;
   right: 0;
-  scale: min(1, calc(0.15 + var(--sticker-pointer-x) * -0.65));
-  translate: clamp(-10%, calc(10% - var(--sticker-pointer-x) * -10%), 10%)
-            calc(min(0%, var(--sticker-pointer-y) * -10%));
-  transform-origin: 100% 0;
   background: radial-gradient(
     circle at 100% 0,
     transparent 10%,
@@ -156,33 +505,248 @@
     hsl(220 90% 70%),
     transparent 60%
   );
+  transform-origin: 100% 0;
+  scale: min(1, calc(0.15 + var(--sticker-pointer-x) * -0.65));
+  translate: clamp(-10%, calc(10% - var(--sticker-pointer-x) * -10%), 10%)
+            calc(min(0%, var(--sticker-pointer-y) * -10%));
 }
 
-.sticker-card:hover .sticker-pattern .refraction {
+/* Frame */
+.sticker-frame {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: var(--sticker-card-border-radius);
+  opacity: 0;
+  transition: opacity 0.5s 2.2s;
+}
+
+.sticker-frame.active {
   opacity: 1;
 }
 
-/* Initial animations for sticker */
-.sticker-image,
-.sticker-pattern,
-.sticker-overlay {
+.sticker-frame img {
+  width: 100%;
+  object-fit: cover;
+  height: 100%;
+  scale: 1.1;
+  position: absolute;
+  inset: 0;
+  filter: saturate(0.8) contrast(1.2) drop-shadow(0 0 10cqi hsl(0 0% 10% / 0.75));
+}
+
+/* Spotlight */
+.sticker-spotlight {
+  position: absolute;
+  inset: 0;
+  mix-blend-mode: overlay;
+  z-index: 10;
+  clip-path: inset(0 0 0 0 round var(--sticker-card-border-radius));
+}
+
+.sticker-spotlight::after {
+  content: '';
+  position: absolute;
+  inset: 0;
   opacity: 0;
+  border: 4px dashed currentColor;
+  border-radius: var(--sticker-card-border-radius);
 }
 
-.sticker-image {
-  animation: fadeIn 0.5s 0.2s forwards;
+[data-explode='true'] .sticker-spotlight::after {
+  opacity: 1;
 }
 
-.sticker-pattern {
-  animation: fadeIn 0.5s 0.4s forwards;
+.sticker-spotlight::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 500%;
+  opacity: 0;
+  aspect-ratio: 1;
+  background: radial-gradient(
+    hsl(0 0% 100% / calc(0.4 * var(--spotlight-intensity, 1))) 0 2%,
+    hsl(0 0% 10% / calc(0.2 * var(--spotlight-intensity, 1))) 20%
+  );
+  filter: brightness(1.2) contrast(1.2);
+  translate: calc(-50% + var(--sticker-pointer-x) * 20%)
+            calc(-50% + var(--sticker-pointer-y) * 20%);
+  transition: opacity 0.2s ease-out;
 }
 
-.sticker-overlay {
-  animation: fadeIn 0.5s 0.6s forwards;
+/* Glare */
+.sticker-glare-container {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--sticker-card-border-radius);
+  overflow: hidden;
+  clip-path: inset(0 0 0 0 round var(--sticker-card-border-radius));
 }
 
-@keyframes fadeIn {
+.sticker-glare {
+  position: absolute;
+  opacity: 0.5;
+  inset: 0;
+  background: linear-gradient(
+    -65deg,
+    transparent 0 40%,
+    #fff 40% 50%,
+    transparent 30% 50%,
+    transparent 50% 55%,
+    #fff 55% 60%,
+    transparent 60% 100%
+  );
+  transform: translateX(100%);
+}
+
+.sticker-glare.animate {
+  animation: glareSwipe 0.65s 0.75s ease-in-out forwards;
+}
+
+@keyframes glareSwipe {
   to {
-    opacity: 1;
+    transform: translateX(-100%);
   }
+}
+
+/* Wordmarks */
+.sticker-wordmark {
+  position: absolute;
+  width: 70%;
+  left: 50%;
+  translate: -50% 0;
+  height: max-content;
+}
+
+.sticker-wordmark--top {
+  top: 12%;
+}
+
+.sticker-wordmark--bottom {
+  bottom: 12%;
+  rotate: 180deg;
+}
+
+.sticker-wordmark::after {
+  content: '™';
+  position: absolute;
+  top: 100%;
+  right: 0;
+  color: #fff;
+}
+
+.sticker-wordmark img {
+  position: static;
+  width: 100%;
+  height: auto;
+}
+
+/* Gemstone */
+.sticker-gemstone {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  height: auto;
+  translate: -50% -50%;
+  filter: hue-rotate(320deg);
+}
+
+/* Controls */
+.sticker-controls {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 999999;
+  display: flex;
+  gap: 0.5rem;
+  transform: translate3d(0, 0, 200vmin);
+}
+
+.sticker-control-btn {
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: all 0.2s;
+  font-family: 'Sora', sans-serif;
+}
+
+.sticker-control-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Overlay - for backward compatibility */
+.sticker-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: var(--overlay-opacity, 1);
+}
+
+.sticker-overlay img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Exploded view animations - Complete 8 layer structure */
+[data-explode='true'] .sticker-img-layer,
+[data-explode='true'] .sticker-debug,
+[data-explode='true'] .sticker-pattern,
+[data-explode='true'] .sticker-watermark,
+[data-explode='true'] .sticker-frame,
+[data-explode='true'] .sticker-spotlight,
+[data-explode='true'] .sticker-spotlight::after,
+[data-explode='true'] .sticker-glare-container {
+  transition-property: transform, opacity;
+  transition-duration: 0.2s;
+  transition-delay: 0.4s;
+}
+
+/* Layer 1: Image base layer */
+[data-explode='true'] .sticker-img-layer {
+  transform: translate3d(0, 0, -240px);
+}
+
+/* Layer 2: Debug layer (first) */
+[data-explode='true'] .sticker-debug:not(.sticker-debug--clipped) {
+  transform: translate3d(0, 0, -160px);
+  opacity: 0.3;
+}
+
+/* Layer 3: Debug clipped layer */
+[data-explode='true'] .sticker-debug--clipped {
+  transform: translate3d(0, 0, -120px);
+  opacity: 0.5;
+}
+
+/* Layer 4: Pattern holographic layer */
+[data-explode='true'] .sticker-pattern {
+  transform: translate3d(0, 0, -80px);
+}
+
+/* Layer 5: Watermark layer */
+[data-explode='true'] .sticker-watermark {
+  transform: translate3d(0, 0, 0px);
+}
+
+/* Layer 6: Frame layer */
+[data-explode='true'] .sticker-frame {
+  transform: translate3d(0, 0, 80px);
+}
+
+/* Layer 7: Spotlight layer */
+[data-explode='true'] .sticker-spotlight {
+  transform: translate3d(0, 0, 160px);
+}
+
+/* Layer 8: Glare container layer */
+[data-explode='true'] .sticker-glare-container {
+  transform: translate3d(0, 0, 240px);
 }

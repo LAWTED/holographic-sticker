@@ -1360,7 +1360,6 @@ const ExampleCard = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
       }}
     >
       <HologramSticker.Root theme="dark">
@@ -1403,11 +1402,6 @@ const ExampleCard = () => {
                 alt="Person"
               />
 
-              {/* Layer 2: Debug layer (first) */}
-              <HologramSticker.DebugLayer variant="default" />
-
-              {/* Layer 3: Debug clipped layer */}
-              <HologramSticker.DebugLayer variant="clipped" />
 
               {/* Layer 4: Pattern holographic effect */}
               <HologramSticker.Pattern opacity={0.4}>

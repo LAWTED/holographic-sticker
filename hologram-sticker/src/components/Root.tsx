@@ -1,40 +1,50 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { HologramProvider } from '../context';
-import { RootProps, PointerPosition } from '../types';
+import React from 'react';
+import { HologramProvider, useHologram } from './HologramContext';
 
-const Root: React.FC<RootProps> = ({ children, className = '', style }) => {
-  const [pointerPosition, setPointerPosition] = useState<PointerPosition>({ x: 0, y: 0 });
-  const rootRef = useRef<HTMLDivElement>(null);
+export interface RootProps {
+  children: React.ReactNode;
+  className?: string;
+  theme?: 'light' | 'dark' | 'system';
+  style?: React.CSSProperties;
+}
 
-  useEffect(() => {
-    const handlePointerMove = (e: PointerEvent) => {
-      // 找到卡片元素 - 原版逻辑是基于卡片的边界框
-      const stickerCard = document.querySelector('.sticker-card') as HTMLElement;
-      if (!stickerCard) return;
-      
-      const bounds = stickerCard.getBoundingClientRect();
-      const posX = e.clientX - bounds.x;
-      const posY = e.clientY - bounds.y;
-      const ratioX = posX / bounds.width - 0.5;
-      const ratioY = posY / bounds.height - 0.5;
-      const pointerX = Math.max(-1, Math.min(1, ratioX * 2));
-      const pointerY = Math.max(-1, Math.min(1, ratioY * 2));
-
-      setPointerPosition({ x: pointerX, y: pointerY });
-    };
-
-    document.addEventListener('pointermove', handlePointerMove);
-    
-    return () => {
-      document.removeEventListener('pointermove', handlePointerMove);
-    };
-  }, []);
+// Internal wrapper component that has access to the context
+const RootContent: React.FC<Omit<RootProps, 'theme'>> = ({
+  children,
+  className = '',
+  style,
+  ...props
+}) => {
+  const { rootRef } = useHologram();
 
   return (
-    <HologramProvider value={{ pointerPosition }}>
-      <div ref={rootRef} className={className} style={style}>
+    <div
+      ref={rootRef}
+      className={`sticker-root ${className}`}
+      style={style}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+};
+
+const Root: React.FC<RootProps> = ({ 
+  children, 
+  className = '', 
+  theme = 'dark', 
+  style,
+  ...props 
+}) => {
+  return (
+    <HologramProvider theme={theme}>
+      <RootContent
+        className={className}
+        style={style}
+        {...props}
+      >
         {children}
-      </div>
+      </RootContent>
     </HologramProvider>
   );
 };

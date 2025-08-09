@@ -1,23 +1,35 @@
 import React from 'react';
-import { RefractionProps } from '../types';
+
+export interface RefractionProps {
+  className?: string;
+  intensity?: number;
+  variant?: 'default' | 'debug';
+  colors?: string[];
+}
 
 const Refraction: React.FC<RefractionProps> = ({ 
   className = '', 
-  colors = ['hsl(5 100% 80%)', 'hsl(150 100% 60%)', 'hsl(220 90% 70%)'],
-  count = 2 
+  intensity = 1,
+  variant = 'default',
+  colors,
+  ...props 
 }) => {
-  const refractionElements = [];
-
-  for (let i = 0; i < count; i++) {
-    refractionElements.push(
-      <div 
-        key={i}
-        className={`refraction ${className}`}
+  const baseClass = variant === 'debug' ? 'sticker-refraction--debug' : 'sticker-refraction';
+  
+  return (
+    <>
+      <div
+        className={`${baseClass} sticker-refraction-1 ${className}`}
+        style={{ '--intensity': intensity } as React.CSSProperties}
+        {...props}
       />
-    );
-  }
-
-  return <>{refractionElements}</>;
+      <div
+        className={`${baseClass} sticker-refraction-2 ${className}`}
+        style={{ '--intensity': intensity } as React.CSSProperties}
+        {...props}
+      />
+    </>
+  );
 };
 
 export default Refraction;

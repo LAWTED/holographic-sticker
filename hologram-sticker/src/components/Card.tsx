@@ -1,75 +1,67 @@
-import React, { useRef, useState } from 'react';
-import { motion } from 'framer-motion';
-import { CardProps } from '../types';
+import React, { forwardRef } from 'react';
+import { useHologram } from './HologramContext';
 
-const Card: React.FC<CardProps> = ({ 
+export interface CardProps {
+  children: React.ReactNode;
+  className?: string;
+  width?: number;
+  aspectRatio?: number;
+  onFlip?: (flipped: boolean) => void;
+}
+
+const Card = forwardRef<HTMLElement, CardProps>(({ 
   children, 
   className = '', 
-  width, 
-  aspectRatio 
-}) => {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [rotateX, setRotateX] = useState(0);
-  const [rotateY, setRotateY] = useState(0);
-  const [pointerX, setPointerX] = useState(0);
-  const [pointerY, setPointerY] = useState(0);
+  width,
+  aspectRatio,
+  onFlip,
+  ...props 
+}, ref) => {
+  const { 
+    isActive, 
+    isFlipped, 
+    setIsFlipped, 
+    isExploded, 
+    cardRef 
+  } = useHologram();
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    
-    const bounds = cardRef.current.getBoundingClientRect();
-    const posX = e.clientX - bounds.x;
-    const posY = e.clientY - bounds.y;
-    const ratioX = posX / bounds.width - 0.5;
-    const ratioY = posY / bounds.height - 0.5;
-    const normalizedX = Math.max(-1, Math.min(1, ratioX * 2));
-    const normalizedY = Math.max(-1, Math.min(1, ratioY * 2));
-
-    // 设置旋转角度
-    setRotateX(normalizedY * 25); // X轴旋转角度
-    setRotateY(normalizedX * -25); // Y轴旋转角度
-    
-    // 设置指针位置用于refraction效果
-    setPointerX(normalizedX);
-    setPointerY(normalizedY);
-  };
-
-  const handleMouseLeave = () => {
-    setRotateX(0);
-    setRotateY(0);
-    setPointerX(0);
-    setPointerY(0);
+  const handleFlip = () => {
+    if (!isActive || isExploded) return;
+    const newFlipped = !isFlipped;
+    setIsFlipped(newFlipped);
+    onFlip?.(newFlipped);
   };
 
   const cardStyle = {
-    '--sticker-pointer-x': pointerX,
-    '--sticker-pointer-y': pointerY,
     ...(width && { width: `${width}px` }),
-    ...(aspectRatio && { aspectRatio: aspectRatio }),
+    ...(aspectRatio && { aspectRatio: aspectRatio.toString() }),
   } as React.CSSProperties;
 
   return (
-    <motion.div 
-      ref={cardRef} 
-      className={`sticker-card ${className}`}
+    <article
+      ref={ref || cardRef}
+      className={`sticker-card ${className} ${isActive ? 'active' : ''} ${
+        isExploded ? 'exploded' : ''
+      }`}
       style={cardStyle}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      animate={{
-        rotateX,
-        rotateY,
-      }}
-      transition={{
-        type: "tween",
-        ease: "easeOut",
-        duration: 0.15,
-      }}
+      data-active={isActive}
+      data-flipped={isFlipped}
+      {...props}
     >
-      <div className="sticker-content">
+      <button
+        className="sticker-flip-button"
+        aria-label="Flip card"
+        aria-pressed={isFlipped}
+        onClick={handleFlip}
+        type="button"
+      />
+      <div className={`sticker-content ${isFlipped ? 'flipped' : ''}`}>
         {children}
       </div>
-    </motion.div>
+    </article>
   );
-};
+});
+
+Card.displayName = 'Card';
 
 export default Card;
