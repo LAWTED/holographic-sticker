@@ -713,11 +713,12 @@
   object-fit: cover;
 }
 
-/* Exploded view animations - Complete 8 layer structure */
+/* Exploded view animations - Complete 9 layer structure */
 [data-explode="true"] .sticker-img-layer,
 [data-explode="true"] .sticker-debug,
 [data-explode="true"] .sticker-pattern,
 [data-explode="true"] .sticker-watermark,
+[data-explode="true"] .sticker-content,
 [data-explode="true"] .sticker-frame,
 [data-explode="true"] .sticker-spotlight,
 [data-explode="true"] .sticker-spotlight::after,
@@ -751,20 +752,25 @@
 
 /* Layer 5: Watermark layer */
 [data-explode="true"] .sticker-watermark {
-  transform: translate3d(0, 0, 0px);
+  transform: translate3d(0, 0, -40px);
 }
 
-/* Layer 6: Frame layer */
+/* Layer 6: Content layer */
+[data-explode="true"] .sticker-content {
+  transform: translate3d(0, 0, 40px);
+}
+
+/* Layer 7: Frame layer */
 [data-explode="true"] .sticker-frame {
   transform: translate3d(0, 0, 80px);
 }
 
-/* Layer 7: Spotlight layer */
+/* Layer 8: Spotlight layer */
 [data-explode="true"] .sticker-spotlight {
   transform: translate3d(0, 0, 160px);
 }
 
-/* Layer 8: Glare container layer */
+/* Layer 9: Glare container layer */
 [data-explode="true"] .sticker-glare-container {
   transform: translate3d(0, 0, 240px);
 }

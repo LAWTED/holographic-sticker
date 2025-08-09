@@ -22,13 +22,6 @@ export interface CardProps {
 
 
 
-export interface BackgroundProps {
-  children?: ReactNode;
-  src?: string;
-  alt?: string;
-  className?: string;
-}
-
 export interface ImageLayerProps {
   src: string;
   alt?: string;
@@ -36,12 +29,8 @@ export interface ImageLayerProps {
   opacity?: number;
   objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
   scale?: number | string;
+  parallax?: boolean;
   style?: React.CSSProperties;
-}
-
-export interface DebugLayerProps {
-  variant?: 'default' | 'clipped';
-  className?: string;
 }
 
 export interface PatternProps {
@@ -85,10 +74,6 @@ export interface GlareProps {
   animate?: boolean;
 }
 
-export interface ArrowProps {
-  className?: string;
-}
-
 export interface MinimapProps {
   className?: string;
 }
@@ -97,27 +82,6 @@ export interface ControlsProps {
   className?: string;
   showTheme?: boolean;
   showAnimate?: boolean;
-}
-
-export interface WordmarkProps {
-  src: string;
-  alt?: string;
-  position?: 'top' | 'bottom';
-  className?: string;
-}
-
-export interface GemstoneProps {
-  src: string;
-  alt?: string;
-  className?: string;
-}
-
-export interface OverlayProps {
-  children?: ReactNode;
-  src?: string;
-  alt?: string;
-  className?: string;
-  opacity?: number;
 }
 
 
