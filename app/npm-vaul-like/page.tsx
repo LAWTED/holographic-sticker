@@ -134,7 +134,6 @@ const NpmVaulLike = () => {
             <HologramSticker.Glare animate />
           </HologramSticker.Card>
         </HologramSticker.Scene>
-        {/* <HologramSticker.Filters /> */}
       </HologramSticker.Root>
 
       <HologramSticker.Root theme="dark">
@@ -182,7 +181,6 @@ const NpmVaulLike = () => {
             <HologramSticker.Glare animate />
           </HologramSticker.Card>
         </HologramSticker.Scene>
-        {/* <HologramSticker.Filters /> */}
       </HologramSticker.Root>
     </div>
   );

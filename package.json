@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "hologram-sticker": "file:hologram-sticker-1.0.0.tgz",
+    "hologram-sticker": "*",
     "next": "15.4.6",
     "react": "19.1.0",
     "react-dom": "19.1.0",
