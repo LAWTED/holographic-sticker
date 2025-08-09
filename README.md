@@ -87,5 +87,5 @@ This project is inspired by [@jh3yy](https://x.com/jh3yy)'s incredible [holograp
 
 ## Links
 
-- [GitHub Repository](https://github.com/lawtedwu/hologram-sticker)
+- [GitHub Repository](https://github.com/LAWTED/hologram-sticker)
 - [npm Package](https://www.npmjs.com/package/hologram-sticker)

@@ -225,12 +225,11 @@ export default LightningSticker;`,
               </div>
 
               {/* Content */}
-              <div className="border border-neutral-800 rounded-lg overflow-hidden">
+              <div className="border bg-neutral-900 border-neutral-800 rounded-lg overflow-hidden">
                 {activeTab[example.id] === "preview" ? (
                   <div
                     className="relative preview-container p-6"
                     style={{
-                      backgroundColor: "#1c1c1b",
                       width: "100%",
                       height: "30rem",
                       display: "flex",
