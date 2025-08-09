@@ -4,7 +4,6 @@ import React from 'react';
 export interface RootProps {
   children: ReactNode;
   className?: string;
-  theme?: 'light' | 'dark' | 'system';
   style?: CSSProperties;
 }
 
@@ -71,7 +70,6 @@ export interface SpotlightProps {
 
 export interface GlareProps {
   className?: string;
-  animate?: boolean;
 }
 
 export interface MinimapProps {
@@ -80,8 +78,6 @@ export interface MinimapProps {
 
 export interface ControlsProps {
   className?: string;
-  showTheme?: boolean;
-  showAnimate?: boolean;
 }
 
 
@@ -100,5 +96,4 @@ export interface HologramContextType {
   minimapRef: React.RefObject<HTMLDivElement>;
   sceneRef: React.RefObject<HTMLDivElement>;
   rootRef: React.RefObject<HTMLDivElement>;
-  theme: 'light' | 'dark' | 'system';
 }

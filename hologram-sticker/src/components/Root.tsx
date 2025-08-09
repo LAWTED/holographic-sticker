@@ -4,12 +4,11 @@ import { HologramProvider, useHologram } from './HologramContext';
 export interface RootProps {
   children: React.ReactNode;
   className?: string;
-  theme?: 'light' | 'dark' | 'system';
   style?: React.CSSProperties;
 }
 
 // Internal wrapper component that has access to the context
-const RootContent: React.FC<Omit<RootProps, 'theme'>> = ({
+const RootContent: React.FC<RootProps> = ({
   children,
   className = '',
   style,
@@ -32,12 +31,11 @@ const RootContent: React.FC<Omit<RootProps, 'theme'>> = ({
 const Root: React.FC<RootProps> = ({ 
   children, 
   className = '', 
-  theme = 'dark', 
   style,
   ...props 
 }) => {
   return (
-    <HologramProvider theme={theme}>
+    <HologramProvider>
       <RootContent
         className={className}
         style={style}

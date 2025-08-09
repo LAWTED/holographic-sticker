@@ -340,7 +340,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  scale: 1.1;
+  scale: 1;
   filter: brightness(0.85);
   transition: translate 0.2s;
   position: absolute;
@@ -348,8 +348,13 @@
 }
 
 /* Parallax enabled ImageLayers */
-[data-explode="false"] .sticker-card.active:hover .sticker-img-layer--parallax img,
-[data-explode="true"]:has(.sticker-minimap:hover) .sticker-img-layer--parallax img {
+[data-explode="false"]
+  .sticker-card.active:hover
+  .sticker-img-layer--parallax
+  img,
+[data-explode="true"]:has(.sticker-minimap:hover)
+  .sticker-img-layer--parallax
+  img {
   transition: transform 0s;
   translate: calc(var(--sticker-pointer-x) * var(--sticker-parallax-img-x))
     calc(var(--sticker-pointer-y) * var(--sticker-parallax-img-y));
@@ -357,8 +362,13 @@
 }
 
 /* Static ImageLayers (no parallax) */
-[data-explode="false"] .sticker-card.active:hover .sticker-img-layer--static img,
-[data-explode="true"]:has(.sticker-minimap:hover) .sticker-img-layer--static img {
+[data-explode="false"]
+  .sticker-card.active:hover
+  .sticker-img-layer--static
+  img,
+[data-explode="true"]:has(.sticker-minimap:hover)
+  .sticker-img-layer--static
+  img {
   /* No translate or animation applied */
 }
 
@@ -439,10 +449,14 @@
 }
 /* Pattern with mask mode (not tiled) */
 .sticker-pattern--mask {
-  mask: var(--pattern-mask-url) center / var(--pattern-mask-size, contain) no-repeat,
-        var(--pattern-url) 50% 50% / var(--pattern-texture-size, 4cqi) var(--pattern-texture-size, 4cqi);
-  -webkit-mask: var(--pattern-mask-url) center / var(--pattern-mask-size, contain) no-repeat,
-                var(--pattern-url) 50% 50% / var(--pattern-texture-size, 4cqi) var(--pattern-texture-size, 4cqi);
+  mask: var(--pattern-mask-url) center / var(--pattern-mask-size, contain)
+      no-repeat,
+    var(--pattern-url) 50% 50% / var(--pattern-texture-size, 4cqi)
+      var(--pattern-texture-size, 4cqi);
+  -webkit-mask: var(--pattern-mask-url) center /
+      var(--pattern-mask-size, contain) no-repeat,
+    var(--pattern-url) 50% 50% / var(--pattern-texture-size, 4cqi)
+      var(--pattern-texture-size, 4cqi);
   mask-composite: intersect;
   -webkit-mask-composite: source-in;
 }
@@ -679,24 +693,6 @@
   display: flex;
   gap: 0.5rem;
   transform: translate3d(0, 0, 200vmin);
-}
-
-.sticker-control-btn {
-  padding: 0.5rem 1rem;
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 6px;
-  cursor: pointer;
-  backdrop-filter: blur(10px);
-  transition: all 0.2s;
-  font-family: "Sora", system-ui, -apple-system, "Segoe UI", "Roboto",
-    sans-serif;
-}
-
-.sticker-control-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: translateY(-2px);
 }
 
 /* Overlay - for backward compatibility */

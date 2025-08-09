@@ -11,7 +11,6 @@ interface HologramContextType {
   minimapRef: React.RefObject<HTMLDivElement>;
   sceneRef: React.RefObject<HTMLDivElement>;
   rootRef: React.RefObject<HTMLDivElement>;
-  theme: string;
 }
 
 // Create context
@@ -31,13 +30,11 @@ export const useHologram = (): HologramContextType => {
 // Provider props
 interface HologramProviderProps {
   children: ReactNode;
-  theme?: 'light' | 'dark' | 'system';
 }
 
 // Context Provider component
 export const HologramProvider: React.FC<HologramProviderProps> = ({ 
-  children, 
-  theme = 'dark' 
+  children
 }) => {
   const [isActive, setIsActive] = useState(true); // 立即激活，无需等待动画
   const [isExploded, setIsExploded] = useState(false);
@@ -90,12 +87,11 @@ export const HologramProvider: React.FC<HologramProviderProps> = ({
   }, [isActive, isExploded]);
 
   useEffect(() => {
-    // Apply theme and explode state to the scoped root element
+    // Apply explode state to the scoped root element
     if (rootRef.current) {
-      rootRef.current.dataset.theme = theme;
       rootRef.current.dataset.explode = isExploded.toString();
     }
-  }, [theme, isExploded]);
+  }, [isExploded]);
 
   const contextValue: HologramContextType = {
     isActive,
@@ -107,7 +103,6 @@ export const HologramProvider: React.FC<HologramProviderProps> = ({
     minimapRef,
     sceneRef,
     rootRef,
-    theme,
   };
 
   return (
