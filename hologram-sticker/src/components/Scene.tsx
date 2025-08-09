@@ -15,7 +15,18 @@ const Scene = forwardRef<HTMLDivElement, SceneProps>(({
 
   return (
     <div
-      ref={ref || sceneRef}
+      ref={(element) => {
+        if (ref) {
+          if (typeof ref === 'function') {
+            ref(element);
+          } else {
+            (ref as React.MutableRefObject<HTMLDivElement | null>).current = element;
+          }
+        }
+        if (sceneRef && 'current' in sceneRef) {
+          (sceneRef as React.MutableRefObject<HTMLDivElement | null>).current = element;
+        }
+      }}
       className={`sticker-scene ${className}`}
       {...props}
     >

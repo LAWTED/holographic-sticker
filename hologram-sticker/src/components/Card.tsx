@@ -38,7 +38,18 @@ const Card = forwardRef<HTMLElement, CardProps>(({
 
   return (
     <article
-      ref={ref || cardRef}
+      ref={(element) => {
+        if (ref) {
+          if (typeof ref === 'function') {
+            ref(element);
+          } else {
+            (ref as React.MutableRefObject<HTMLElement | null>).current = element;
+          }
+        }
+        if (cardRef && 'current' in cardRef) {
+          (cardRef as React.MutableRefObject<HTMLElement | null>).current = element;
+        }
+      }}
       className={`sticker-card ${className} ${isActive ? 'active' : ''} ${
         isExploded ? 'exploded' : ''
       }`}

@@ -18,7 +18,7 @@ const RootContent: React.FC<RootProps> = ({
 
   return (
     <div
-      ref={rootRef}
+      ref={rootRef as React.RefObject<HTMLDivElement>}
       className={`sticker-root ${className}`}
       style={style}
       {...props}

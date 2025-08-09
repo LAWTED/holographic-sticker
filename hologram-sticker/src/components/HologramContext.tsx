@@ -7,10 +7,10 @@ interface HologramContextType {
   setIsExploded: (exploded: boolean) => void;
   pointerPos: { x: string; y: string };
   showGlare: boolean;
-  cardRef: React.RefObject<HTMLElement>;
-  minimapRef: React.RefObject<HTMLDivElement>;
-  sceneRef: React.RefObject<HTMLDivElement>;
-  rootRef: React.RefObject<HTMLDivElement>;
+  cardRef: React.RefObject<HTMLElement | null>;
+  minimapRef: React.RefObject<HTMLDivElement | null>;
+  sceneRef: React.RefObject<HTMLDivElement | null>;
+  rootRef: React.RefObject<HTMLDivElement | null>;
 }
 
 // Create context

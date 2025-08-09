@@ -10,7 +10,7 @@ const Minimap: React.FC<MinimapProps> = ({ className = '', ...props }) => {
 
   return (
     <div
-      ref={minimapRef}
+      ref={minimapRef as React.RefObject<HTMLDivElement>}
       className={`sticker-minimap ${className} ${isExploded ? 'visible' : ''}`}
       {...props}
     >
