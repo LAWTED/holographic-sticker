@@ -24,7 +24,7 @@ const Card = forwardRef<HTMLElement, CardProps>(({
   width,
   aspectRatio,
   ...props 
-}, ref) => {
+}: CardProps, ref) => {
   const { 
     isActive, 
     isExploded, 
