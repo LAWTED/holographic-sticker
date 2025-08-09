@@ -8,6 +8,7 @@ export interface ImageLayerProps {
   opacity?: number;
   objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
   scale?: number | string;
+  parallax?: boolean;
   style?: React.CSSProperties;
 }
 
@@ -18,6 +19,7 @@ const ImageLayer: React.FC<ImageLayerProps> = ({
   opacity,
   objectFit,
   scale,
+  parallax = false,
   style,
   ...props 
 }) => {
@@ -34,7 +36,7 @@ const ImageLayer: React.FC<ImageLayerProps> = ({
 
   return (
     <div
-      className={`sticker-img-layer ${className}`}
+      className={`sticker-img-layer ${parallax ? 'sticker-img-layer--parallax' : 'sticker-img-layer--static'} ${className}`}
       style={combinedStyle}
       {...props}
     >

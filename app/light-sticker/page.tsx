@@ -5,13 +5,18 @@ import "./light-sticker.css";
 
 const LightStickerPage = () => {
   const stickerRef = useRef<HTMLElement>(null);
+  const minimapRef = useRef<HTMLDivElement>(null);
   const [stickerPointer, setStickerPointer] = useState({ x: 0, y: 0 });
+  const [isExploded, setIsExploded] = useState(false);
+  const [theme, setTheme] = useState<'light' | 'dark' | 'system'>('dark');
+  const [animate, setAnimate] = useState(true);
 
   useEffect(() => {
     const handlePointerMove = (e: PointerEvent) => {
-      if (!stickerRef.current) return;
+      const element = isExploded ? minimapRef.current : stickerRef.current;
+      if (!element) return;
       
-      const bounds = stickerRef.current.getBoundingClientRect();
+      const bounds = element.getBoundingClientRect();
       const posX = e.clientX - bounds.x;
       const posY = e.clientY - bounds.y;
       const ratioX = posX / bounds.width - 0.5;
@@ -24,7 +29,14 @@ const LightStickerPage = () => {
 
     document.addEventListener("pointermove", handlePointerMove);
     return () => document.removeEventListener('pointermove', handlePointerMove);
-  }, []);
+  }, [isExploded]);
+
+  const toggleTheme = () => {
+    const themes: ('system' | 'light' | 'dark')[] = ['system', 'light', 'dark'];
+    const currentIndex = themes.indexOf(theme);
+    const nextIndex = (currentIndex + 1) % themes.length;
+    setTheme(themes[nextIndex]);
+  };
 
   const dynamicStyles = `
     .sticker-card {
@@ -44,11 +56,51 @@ const LightStickerPage = () => {
   `;
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black">
+    <div 
+      className="min-h-screen flex items-center justify-center bg-black"
+      data-theme={theme}
+      data-explode={isExploded.toString()}
+    >
       <style>{dynamicStyles}</style>
       
+      {/* Controls */}
+      <div className="sticker-controls">
+        <button
+          onClick={() => setIsExploded(!isExploded)}
+          className="sticker-control-btn"
+          type="button"
+        >
+          {isExploded ? '📦 Collapse' : '💥 Explode'}
+        </button>
+        <button
+          onClick={() => setAnimate(!animate)}
+          className="sticker-control-btn"
+          type="button"
+        >
+          {animate ? '⏸️ Pause' : '▶️ Animate'}
+        </button>
+        <button 
+          onClick={toggleTheme} 
+          className="sticker-control-btn"
+          type="button"
+        >
+          🎨 {theme}
+        </button>
+      </div>
+
+      {/* Minimap */}
+      <div
+        ref={minimapRef}
+        className={`sticker-minimap ${isExploded ? 'visible' : ''}`}
+      >
+        <div className="sticker-minimap__stats">
+          <span>x: {stickerPointer.x.toFixed(2)}</span>
+          <span>y: {stickerPointer.y.toFixed(2)}</span>
+        </div>
+      </div>
+      
       <div className="scene">
-        <article ref={stickerRef} className="sticker-card border border-white">
+        <article ref={stickerRef} className={`sticker-card border border-white ${isExploded ? 'exploded' : ''}`}>
           <div className="sticker-content">
             {/* Image background */}
             <div className="sticker-background">

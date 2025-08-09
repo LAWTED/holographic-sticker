@@ -27,6 +27,7 @@ const OGSticker = () => {
             <HologramSticker.ImageLayer
               src="https://assets.codepen.io/605876/headshot--square.jpeg"
               alt="Person"
+              parallax={true}
             />
 
             {/* Layer 2: Pattern holographic effect */}
@@ -165,6 +166,7 @@ const OGSticker = () => {
                 <HologramSticker.ImageLayer
                   src="https://assets.codepen.io/605876/headshot--square-transparent.png"
                   alt=""
+                  parallax={true}
                 />
               </div>
             </HologramSticker.Content>

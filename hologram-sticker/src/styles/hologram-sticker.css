@@ -347,12 +347,19 @@
   inset: 0;
 }
 
-[data-explode="false"] .sticker-card.active:hover .sticker-img-layer img,
-[data-explode="true"]:has(.sticker-minimap:hover) .sticker-img-layer img {
+/* Parallax enabled ImageLayers */
+[data-explode="false"] .sticker-card.active:hover .sticker-img-layer--parallax img,
+[data-explode="true"]:has(.sticker-minimap:hover) .sticker-img-layer--parallax img {
   transition: transform 0s;
   translate: calc(var(--sticker-pointer-x) * var(--sticker-parallax-img-x))
     calc(var(--sticker-pointer-y) * var(--sticker-parallax-img-y));
   animation: set-img backwards 0.2s;
+}
+
+/* Static ImageLayers (no parallax) */
+[data-explode="false"] .sticker-card.active:hover .sticker-img-layer--static img,
+[data-explode="true"]:has(.sticker-minimap:hover) .sticker-img-layer--static img {
+  /* No translate or animation applied */
 }
 
 [data-explode="false"] .sticker-card.active:hover .sticker-frame img,

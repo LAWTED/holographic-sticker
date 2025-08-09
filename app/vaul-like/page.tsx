@@ -1003,7 +1003,7 @@ body::before {
   border-radius: var(--card-border-radius);
   filter: saturate(0.8) contrast(1) brightness(1);
   mask: var(--pattern-url, url(https://assets.codepen.io/605876/figma-texture.png)) 50% 50% / 4cqi 4cqi;
-  opacity: var(--pattern-opacity, 0.4);
+  opacity: var(--pattern-opacity, 1);
   mix-blend-mode: multiply;
   clip-path: inset(0 0 0 0 round var(--card-border-radius));
 }

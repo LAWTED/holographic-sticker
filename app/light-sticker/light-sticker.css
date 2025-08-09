@@ -96,18 +96,21 @@ body::before {
 .sticker-content {
   position: absolute;
   inset: 0;
+  transform-style: preserve-3d;
 }
 
 /* Sticker Background */
 .sticker-background {
   position: absolute;
   inset: 0;
+  transform-style: preserve-3d;
 }
 
 /* Sticker Pattern */
 .sticker-pattern {
   position: absolute;
   inset: 0;
+  transform-style: preserve-3d;
 }
 
 /* Sticker Overlay */
@@ -115,6 +118,7 @@ body::before {
   position: absolute;
   inset: 0;
   z-index: 1;
+  transform-style: preserve-3d;
 }
 
 .sticker-image {
@@ -206,4 +210,118 @@ body::before {
   to {
     opacity: 1;
   }
+}
+
+/* Controls */
+.sticker-controls {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 999999;
+  display: flex;
+  gap: 0.5rem;
+  transform: translate3d(0, 0, 200vmin);
+}
+
+.sticker-control-btn {
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: all 0.2s;
+  font-family: 'SF Pro Text', 'SF Pro Icons', 'AOS Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif, system-ui;
+}
+
+.sticker-control-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Minimap */
+.sticker-minimap {
+  position: fixed;
+  width: 60px;
+  aspect-ratio: 5/7;
+  background: hsl(0 0% 50%);
+  top: 50%;
+  left: 50%;
+  translate: calc(var(--card-width) * 1) -50%;
+  border-radius: 6px;
+  cursor: pointer;
+  border: rgba(255, 255, 255, 0.2) 4px solid;
+  z-index: 999999;
+  transform: translate3d(0, 0, 100vmin);
+  pointer-events: none;
+  visibility: hidden;
+  transition: all 0.3s;
+}
+
+.sticker-minimap.visible {
+  pointer-events: all;
+  visibility: visible;
+}
+
+.sticker-minimap::after {
+  content: "trackpad";
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  font-family: 'SF Pro Text', 'SF Pro Icons', 'AOS Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif, system-ui;
+  transform: translate(-50%, -50%) rotate(-90deg) translateY(100%);
+  font-size: 0.875rem;
+  pointer-events: none;
+  opacity: 0.35;
+}
+
+.sticker-minimap__stats {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  opacity: 0.7;
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: white;
+}
+
+.sticker-minimap__stats span {
+  white-space: nowrap;
+}
+
+/* Exploded view */
+.sticker-card.exploded {
+  pointer-events: none;
+  transition: transform 0.2s 0.2s;
+  transform: rotateX(-24deg) rotateY(32deg) rotateX(90deg);
+}
+
+[data-explode="true"] .sticker-background,
+[data-explode="true"] .sticker-pattern,
+[data-explode="true"] .sticker-overlay {
+  transition-property: transform, opacity;
+  transition-duration: 0.2s;
+  transition-delay: 0.4s;
+}
+
+/* Layer separation in exploded view - 增加更大的分离距离 */
+[data-explode="true"] .sticker-background {
+  transform: translate3d(0, 0, -160px);
+}
+
+[data-explode="true"] .sticker-pattern {
+  transform: translate3d(0, 0, 0px);
+}
+
+[data-explode="true"] .sticker-overlay {
+  transform: translate3d(0, 0, 160px);
+}
+
+/* 在分解模式下禁用某些混合模式以便更好地看到层级 */
+[data-explode="true"] .sticker-pattern {
+  mix-blend-mode: unset;
 }
