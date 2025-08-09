@@ -16,7 +16,7 @@ import Controls from './components/Controls';
 import { useHologram } from './components/HologramContext';
 
 // Styles
-import './styles/hologram-sticker.css';
+import './styles/holographic-sticker.css';
 
 // Compound Component
 const HologramSticker = {

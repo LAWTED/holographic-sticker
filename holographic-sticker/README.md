@@ -308,8 +308,8 @@ You can customize the appearance using CSS custom properties:
 
 ```css
 .holographic-sticker-card {
-  --hologram-rotate-x: 30deg;  /* X-axis rotation intensity */
-  --hologram-rotate-y: -25deg; /* Y-axis rotation intensity */
+  --holographic-rotate-x: 30deg;  /* X-axis rotation intensity */
+  --holographic-rotate-y: -25deg; /* Y-axis rotation intensity */
 }
 
 .holographic-sticker-pattern {

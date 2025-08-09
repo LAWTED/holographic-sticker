@@ -20,21 +20,21 @@ npm install holographic-sticker
 ## Quick Start
 
 ```tsx
-import HologramSticker from "holographic-sticker";
+import HolographicSticker from "holographic-sticker";
 
 export default function MySticker() {
   return (
-    <HologramSticker.Root>
-      <HologramSticker.Controls />
-      <HologramSticker.Minimap />
-      <HologramSticker.Scene>
-        <HologramSticker.Card className="border border-white rounded-2xl">
-          <HologramSticker.ImageLayer
+    <HolographicSticker.Root>
+      <HolographicSticker.Controls />
+      <HolographicSticker.Minimap />
+      <HolographicSticker.Scene>
+        <HolographicSticker.Card className="border border-white rounded-2xl">
+          <HolographicSticker.ImageLayer
             src="/your-image.png"
             alt="Sticker"
             objectFit="contain"
           />
-          <HologramSticker.Pattern
+          <HolographicSticker.Pattern
             maskUrl="/your-mask.png"
             maskSize="contain"
             textureUrl="https://assets.codepen.io/605876/figma-texture.png"
@@ -42,11 +42,11 @@ export default function MySticker() {
             mixBlendMode="hard-light"
             opacity={0.7}
           >
-            <HologramSticker.Refraction intensity={2} />
-          </HologramSticker.Pattern>
-        </HologramSticker.Card>
-      </HologramSticker.Scene>
-    </HologramSticker.Root>
+            <HolographicSticker.Refraction intensity={2} />
+          </HolographicSticker.Pattern>
+        </HolographicSticker.Card>
+      </HolographicSticker.Scene>
+    </HolographicSticker.Root>
   );
 }
 ```
