@@ -1,6 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hologram Sticker
 
-## Getting Started
+A React component library for creating stunning holographic sticker effects. Interactive, customizable, and performant.
+
+## Installation
+
+```bash
+npm install hologram-sticker
+```
+
+## Features
+
+- 🌈 **Holographic Effects** - Create stunning holographic sticker animations
+- 🎮 **Interactive Controls** - Built-in controls for customizing effects
+- 🗺️ **Minimap** - Visual minimap for navigation
+- 🎨 **Customizable Patterns** - Support for custom textures and masks
+- ⚡ **Performance Optimized** - Smooth animations with efficient rendering
+- 📱 **Responsive** - Works across all device sizes
+
+## Quick Start
+
+```tsx
+import HologramSticker from "hologram-sticker";
+
+export default function MySticker() {
+  return (
+    <HologramSticker.Root>
+      <HologramSticker.Controls />
+      <HologramSticker.Minimap />
+      <HologramSticker.Scene>
+        <HologramSticker.Card className="border border-white rounded-2xl">
+          <HologramSticker.ImageLayer
+            src="/your-image.png"
+            alt="Sticker"
+            objectFit="contain"
+          />
+          <HologramSticker.Pattern
+            maskUrl="/your-mask.png"
+            maskSize="contain"
+            textureUrl="https://assets.codepen.io/605876/figma-texture.png"
+            textureSize="6cqi"
+            mixBlendMode="hard-light"
+            opacity={0.7}
+          >
+            <HologramSticker.Refraction intensity={2} />
+          </HologramSticker.Pattern>
+        </HologramSticker.Card>
+      </HologramSticker.Scene>
+    </HologramSticker.Root>
+  );
+}
+```
+
+## Development
 
 First, run the development server:
 
@@ -10,27 +61,31 @@ npm run dev
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to see the examples and documentation.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Examples
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The project includes several example implementations:
 
-## Learn More
+- **Lightning Sticker** - Lightning holographic effect with mask patterns and refraction
+- **OG Sticker** - Inspired by @jh3yy's original holographic card design
+- **Lawted Sticker** - Custom sticker implementation
 
-To learn more about Next.js, take a look at the following resources:
+## Credits
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This project is inspired by [@jh3yy](https://x.com/jh3yy)'s incredible [holographic card design](https://codepen.io/jh3y/pen/EaVNNxa). All inspiration and foundation code comes from this original work.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Built With
 
-## Deploy on Vercel
+- React 19
+- Next.js 15
+- TypeScript
+- Tailwind CSS
+- CSS Animations
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Links
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [GitHub Repository](https://github.com/lawtedwu/hologram-sticker)
+- [npm Package](https://www.npmjs.com/package/hologram-sticker)
