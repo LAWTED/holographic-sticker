@@ -1,4 +1,5 @@
 import { ReactNode, CSSProperties } from 'react';
+import React from 'react';
 
 export interface RootProps {
   children: ReactNode;
@@ -32,6 +33,10 @@ export interface ImageLayerProps {
   src: string;
   alt?: string;
   className?: string;
+  opacity?: number;
+  objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
+  scale?: number | string;
+  style?: React.CSSProperties;
 }
 
 export interface DebugLayerProps {
@@ -42,7 +47,8 @@ export interface DebugLayerProps {
 export interface PatternProps {
   children?: ReactNode;
   className?: string;
-  imageUrl?: string;
+  maskUrl?: string;
+  maskSize?: 'contain' | 'cover' | string;
   textureUrl?: string;
   opacity?: number;
   mode?: 'composite' | 'texture-only';
@@ -64,10 +70,9 @@ export interface RefractionProps {
   colors?: string[];
 }
 
-export interface FrameProps {
+export interface ContentProps {
   children: ReactNode;
   className?: string;
-  emboss?: boolean;
 }
 
 export interface SpotlightProps {

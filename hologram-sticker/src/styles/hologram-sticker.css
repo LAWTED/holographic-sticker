@@ -430,6 +430,15 @@
   inset: 0;
   background: hsl(0 0% 80%);
 }
+/* Pattern with mask mode (not tiled) */
+.sticker-pattern--mask {
+  mask: var(--pattern-mask-url) center / var(--pattern-mask-size, contain) no-repeat,
+        var(--pattern-url) 50% 50% / var(--pattern-texture-size, 4cqi) var(--pattern-texture-size, 4cqi);
+  -webkit-mask: var(--pattern-mask-url) center / var(--pattern-mask-size, contain) no-repeat,
+                var(--pattern-url) 50% 50% / var(--pattern-texture-size, 4cqi) var(--pattern-texture-size, 4cqi);
+  mask-composite: intersect;
+  -webkit-mask-composite: source-in;
+}
 
 /* Watermark */
 .sticker-watermark {

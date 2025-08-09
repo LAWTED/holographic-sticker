@@ -2,7 +2,7 @@
 import React from "react";
 import HologramSticker from "hologram-sticker";
 
-const NpmVaulLike = () => {
+const OGSticker = () => {
   return (
     <div
       style={{
@@ -46,126 +46,128 @@ const NpmVaulLike = () => {
               <HologramSticker.Refraction intensity={1} />
             </HologramSticker.Watermark>
 
-            {/* Layer 4: Frame with emboss effect */}
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                zIndex: 2,
-                borderRadius: "8cqi",
-                opacity: 1,
-                filter: "url(#hologram-lighting)",
-                clipPath: "inset(0 0 0 0 round 8cqi)",
-              }}
-            >
-              {/* Emboss border */}
+            {/* Layer 4: Content with custom emboss frame */}
+            <HologramSticker.Content>
               <div
                 style={{
                   position: "absolute",
-                  inset: "-1px",
-                  border: "calc((8cqi * 0.5) + 1px) solid hsl(0 0% 25%)",
+                  inset: 0,
+                  zIndex: 2,
                   borderRadius: "8cqi",
-                  zIndex: 99,
-                }}
-              />
-
-              {/* Copyright text */}
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: 0,
-                  left: "50%",
-                  height: "calc(8cqi * 0.5)",
-                  display: "flex",
-                  alignItems: "center",
-                  transform: "translateX(-50%)",
-                  color: "#fff",
-                  fontSize: "1.5cqi",
-                  opacity: 0.8,
-                  zIndex: 100,
+                  opacity: 1,
+                  filter: "url(#hologram-lighting)",
+                  clipPath: "inset(0 0 0 0 round 8cqi)",
                 }}
               >
-                TechTrades © 2025
-              </div>
-
-              <div
-                style={{
-                  position: "absolute",
-                  top: "8cqi",
-                  right: "8cqi",
-                  textAlign: "right",
-                  letterSpacing: "-0.05em",
-                  fontWeight: 1000,
-                  lineHeight: 1,
-                  zIndex: 100,
-                  margin: 0,
-                }}
-              >
-                <span
+                {/* Emboss border */}
+                <div
                   style={{
-                    filter: "url(#hologram-sticker)",
-                    fontSize: "10cqi",
-                    display: "block",
+                    position: "absolute",
+                    inset: "-1px",
+                    border: "calc((8cqi * 0.5) + 1px) solid hsl(0 0% 25%)",
+                    borderRadius: "8cqi",
+                    zIndex: 99,
                   }}
-                >
-                  Jhey Tompkins
-                </span>
-                <span
-                  style={{
-                    filter: "url(#hologram-sticker)",
-                    fontSize: "5cqi",
-                    display: "block",
-                  }}
-                >
-                  Staff Design Engineer
-                </span>
-              </div>
-
-              {/* Signature */}
-              <svg
-                style={{
-                  color: "hsl(45 20% 60%)",
-                  position: "absolute",
-                  zIndex: 100,
-                  width: "38cqi",
-                  bottom: "calc(8cqi * 1.1)",
-                  right: "calc(8cqi * 0.6)",
-                  rotate: "20deg",
-                }}
-                viewBox="0 0 271 209"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M40.3725 26.8984C58.6558 41.1564 141.659 43.1867 128.248 5.48254C127.911 4.53766 127.085 2.2403 125.938 2.0095C124.714 1.76297 121.929 6.39448 121.627 6.82375C100.965 36.1863 95.2641 73.5992 74.5923 102.644C63.7045 117.942 14.7891 145.678 5.55986 113.481C-17.5939 32.705 78.7483 76.0672 105.741 67.4678C119.757 63.0021 125.297 50.6825 132.831 39.1622C135.218 35.5126 137.628 24.6153 140.043 28.2467C144.771 35.3581 119.642 69.8761 115.559 78.4692C110.959 88.1482 129.228 46.7461 136.796 54.3333C146.229 63.7897 128.236 82.7359 153.367 61.6804C157.634 58.1059 166.582 46.4029 161.033 46.8455C153.977 47.4085 141.565 67.0198 151.685 70.0327C161.531 72.9635 176.039 38.7196 174.012 48.7901C173.009 53.769 168.343 67.3695 175.978 68.9069C186.537 71.0328 191.574 35.8659 197.537 44.8359C240.356 109.24 81.7126 283.324 50.2184 167.261C25.2159 75.1229 240.563 89.2082 268.88 137.08"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                  strokeMiterlimit="10"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  pathLength="1"
                 />
-              </svg>
 
-              {/* Sticker */}
-              <div
-                style={{
-                  position: "absolute",
-                  width: "calc(8cqi * 2.75)",
-                  bottom: "calc(8cqi * 0.75)",
-                  left: "calc(8cqi * 0.65)",
-                  zIndex: 100,
-                }}
-              >
-                <ShopifyLogo />
+                {/* Copyright text */}
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: "50%",
+                    height: "calc(8cqi * 0.5)",
+                    display: "flex",
+                    alignItems: "center",
+                    transform: "translateX(-50%)",
+                    color: "#fff",
+                    fontSize: "1.5cqi",
+                    opacity: 0.8,
+                    zIndex: 100,
+                  }}
+                >
+                  TechTrades © 2025
+                </div>
+
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "8cqi",
+                    right: "8cqi",
+                    textAlign: "right",
+                    letterSpacing: "-0.05em",
+                    fontWeight: 1000,
+                    lineHeight: 1,
+                    zIndex: 100,
+                    margin: 0,
+                  }}
+                >
+                  <span
+                    style={{
+                      filter: "url(#hologram-sticker)",
+                      fontSize: "10cqi",
+                      display: "block",
+                    }}
+                  >
+                    Jhey Tompkins
+                  </span>
+                  <span
+                    style={{
+                      filter: "url(#hologram-sticker)",
+                      fontSize: "5cqi",
+                      display: "block",
+                    }}
+                  >
+                    Staff Design Engineer
+                  </span>
+                </div>
+
+                {/* Signature */}
+                <svg
+                  style={{
+                    color: "hsl(45 20% 60%)",
+                    position: "absolute",
+                    zIndex: 100,
+                    width: "38cqi",
+                    bottom: "calc(8cqi * 1.1)",
+                    right: "calc(8cqi * 0.6)",
+                    rotate: "20deg",
+                  }}
+                  viewBox="0 0 271 209"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M40.3725 26.8984C58.6558 41.1564 141.659 43.1867 128.248 5.48254C127.911 4.53766 127.085 2.2403 125.938 2.0095C124.714 1.76297 121.929 6.39448 121.627 6.82375C100.965 36.1863 95.2641 73.5992 74.5923 102.644C63.7045 117.942 14.7891 145.678 5.55986 113.481C-17.5939 32.705 78.7483 76.0672 105.741 67.4678C119.757 63.0021 125.297 50.6825 132.831 39.1622C135.218 35.5126 137.628 24.6153 140.043 28.2467C144.771 35.3581 119.642 69.8761 115.559 78.4692C110.959 88.1482 129.228 46.7461 136.796 54.3333C146.229 63.7897 128.236 82.7359 153.367 61.6804C157.634 58.1059 166.582 46.4029 161.033 46.8455C153.977 47.4085 141.565 67.0198 151.685 70.0327C161.531 72.9635 176.039 38.7196 174.012 48.7901C173.009 53.769 168.343 67.3695 175.978 68.9069C186.537 71.0328 191.574 35.8659 197.537 44.8359C240.356 109.24 81.7126 283.324 50.2184 167.261C25.2159 75.1229 240.563 89.2082 268.88 137.08"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                    strokeMiterlimit="10"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    pathLength="1"
+                  />
+                </svg>
+
+                {/* Sticker */}
+                <div
+                  style={{
+                    position: "absolute",
+                    width: "calc(8cqi * 2.75)",
+                    bottom: "calc(8cqi * 0.75)",
+                    left: "calc(8cqi * 0.65)",
+                    zIndex: 100,
+                  }}
+                >
+                  <ShopifyLogo />
+                </div>
+
+                {/* Portrait image */}
+                <HologramSticker.ImageLayer
+                  src="https://assets.codepen.io/605876/headshot--square-transparent.png"
+                  alt=""
+                />
               </div>
-
-              {/* Portrait image */}
-              <HologramSticker.ImageLayer
-                src="https://assets.codepen.io/605876/headshot--square-transparent.png"
-                alt=""
-              />
-            </div>
+            </HologramSticker.Content>
 
             {/* Layer 5: Spotlight */}
             <HologramSticker.Spotlight intensity={1} />
@@ -249,4 +251,4 @@ const ShopifyLogo = () => (
   </svg>
 );
 
-export default NpmVaulLike;
+export default OGSticker;

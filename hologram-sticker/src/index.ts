@@ -8,7 +8,7 @@ import DebugLayer from './components/DebugLayer';
 import Pattern from './components/Pattern';
 import Watermark from './components/Watermark';
 import Refraction from './components/Refraction';
-import Frame from './components/Frame';
+import Content from './components/Content';
 import Spotlight from './components/Spotlight';
 import Glare from './components/Glare';
 import Arrow from './components/Arrow';
@@ -36,7 +36,7 @@ const HologramSticker = {
   Pattern,
   Watermark,
   Refraction,
-  Frame,
+  Content,
   Spotlight,
   Glare,
   Arrow,
@@ -59,7 +59,7 @@ export type {
   PatternProps,
   WatermarkProps,
   RefractionProps,
-  FrameProps,
+  ContentProps,
   SpotlightProps,
   GlareProps,
   ArrowProps,
