@@ -1,22 +1,22 @@
 "use client";
-import HologramSticker from "hologram-sticker";
+import HolographicSticker from "holographic-sticker";
 
 const LightningSticker = () => {
   return (
-      <HologramSticker.Root>
-      <HologramSticker.Controls />
-      <HologramSticker.Minimap />
-      <HologramSticker.Scene>
-        <HologramSticker.Card className="border border-white rounded-2xl">
+      <HolographicSticker.Root>
+      <HolographicSticker.Controls />
+      <HolographicSticker.Minimap />
+      <HolographicSticker.Scene>
+        <HolographicSticker.Card className="border border-white rounded-2xl">
           {/* Background image layer */}
-          <HologramSticker.ImageLayer
+          <HolographicSticker.ImageLayer
             src="/light.png"
             alt="Lightning"
             objectFit="contain"
           />
 
           {/* Pattern holographic effect */}
-          <HologramSticker.Pattern
+          <HolographicSticker.Pattern
             maskUrl="/light.png"
             maskSize="contain"
             textureUrl="https://assets.codepen.io/605876/figma-texture.png"
@@ -24,21 +24,21 @@ const LightningSticker = () => {
             mixBlendMode="hard-light"
             opacity={0.7}
           >
-            <HologramSticker.Refraction intensity={2} />
-          </HologramSticker.Pattern>
+            <HolographicSticker.Refraction intensity={2} />
+          </HolographicSticker.Pattern>
 
-          <HologramSticker.Content>
+          <HolographicSticker.Content>
             {/* Overlay image */}
-            <HologramSticker.ImageLayer
+            <HolographicSticker.ImageLayer
               src="/light.png"
               alt=""
               opacity={0.2}
               objectFit="contain"
             />
-          </HologramSticker.Content>
-        </HologramSticker.Card>
-      </HologramSticker.Scene>
-    </HologramSticker.Root>
+          </HolographicSticker.Content>
+        </HolographicSticker.Card>
+      </HolographicSticker.Scene>
+    </HolographicSticker.Root>
   );
 };
 

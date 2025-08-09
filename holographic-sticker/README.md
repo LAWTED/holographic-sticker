@@ -1,4 +1,4 @@
-# 🌟 Hologram Sticker
+# 🌟 Holographic Sticker
 
 A React component library for creating stunning holographic sticker effects with 3D transformations and interactive animations.
 
@@ -14,51 +14,51 @@ A React component library for creating stunning holographic sticker effects with
 ## 🚀 Installation
 
 ```bash
-npm install hologram-sticker
+npm install holographic-sticker
 # or
-yarn add hologram-sticker
+yarn add holographic-sticker
 # or
-pnpm add hologram-sticker
+pnpm add holographic-sticker
 ```
 
 ## 📖 Quick Start
 
 ```tsx
-import HologramSticker from 'hologram-sticker';
+import HolographicSticker from 'holographic-sticker';
 
 function App() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-black">
-      <HologramSticker.Root>
-        <HologramSticker.Controls />
-        <HologramSticker.Minimap />
-        <HologramSticker.Scene>
-          <HologramSticker.Card className="border border-white rounded-2xl">
-            <HologramSticker.ImageLayer
+      <HolographicSticker.Root>
+        <HolographicSticker.Controls />
+        <HolographicSticker.Minimap />
+        <HolographicSticker.Scene>
+          <HolographicSticker.Card className="border border-white rounded-2xl">
+            <HolographicSticker.ImageLayer
               src="/lightning.png"
               alt="Lightning"
               objectFit="contain"
             />
-            <HologramSticker.Pattern
+            <HolographicSticker.Pattern
               maskUrl="/lightning.png"
               maskSize="contain"
               textureUrl="https://assets.codepen.io/605876/figma-texture.png"
               mixBlendMode="hard-light"
               opacity={0.7}
             >
-              <HologramSticker.Refraction intensity={2} />
-            </HologramSticker.Pattern>
-            <HologramSticker.Content>
-              <HologramSticker.ImageLayer
+              <HolographicSticker.Refraction intensity={2} />
+            </HolographicSticker.Pattern>
+            <HolographicSticker.Content>
+              <HolographicSticker.ImageLayer
                 src="/lightning.png"
                 alt=""
                 opacity={0.2}
                 objectFit="contain"
               />
-            </HologramSticker.Content>
-          </HologramSticker.Card>
-        </HologramSticker.Scene>
-      </HologramSticker.Root>
+            </HolographicSticker.Content>
+          </HolographicSticker.Card>
+        </HolographicSticker.Scene>
+      </HolographicSticker.Root>
     </div>
   );
 }
@@ -76,26 +76,26 @@ The library follows a structured component hierarchy:
 6. **Content**: Overlay content container
 
 ```tsx
-<HologramSticker.Root>              {/* Mouse tracking context */}
-  <HologramSticker.Controls />      {/* Interactive controls */}
-  <HologramSticker.Minimap />       {/* Navigation minimap */}
-  <HologramSticker.Scene>           {/* 3D scene container */}
-    <HologramSticker.Card>          {/* Individual sticker */}
-      <HologramSticker.ImageLayer /> {/* Base image layer */}
-      <HologramSticker.Pattern>     {/* Holographic effects */}
-        <HologramSticker.Refraction /> {/* Light refraction */}
-      </HologramSticker.Pattern>
-      <HologramSticker.Content>     {/* Overlay content */}
-        <HologramSticker.ImageLayer /> {/* Overlay images */}
-      </HologramSticker.Content>
-    </HologramSticker.Card>
-  </HologramSticker.Scene>
-</HologramSticker.Root>
+<HolographicSticker.Root>              {/* Mouse tracking context */}
+  <HolographicSticker.Controls />      {/* Interactive controls */}
+  <HolographicSticker.Minimap />       {/* Navigation minimap */}
+  <HolographicSticker.Scene>           {/* 3D scene container */}
+    <HolographicSticker.Card>          {/* Individual sticker */}
+      <HolographicSticker.ImageLayer /> {/* Base image layer */}
+      <HolographicSticker.Pattern>     {/* Holographic effects */}
+        <HolographicSticker.Refraction /> {/* Light refraction */}
+      </HolographicSticker.Pattern>
+      <HolographicSticker.Content>     {/* Overlay content */}
+        <HolographicSticker.ImageLayer /> {/* Overlay images */}
+      </HolographicSticker.Content>
+    </HolographicSticker.Card>
+  </HolographicSticker.Scene>
+</HolographicSticker.Root>
 ```
 
 ## 📚 API Reference
 
-### HologramSticker.Root
+### HolographicSticker.Root
 
 The main container that provides mouse tracking context.
 
@@ -104,7 +104,7 @@ The main container that provides mouse tracking context.
 | `children` | `ReactNode` | - | Child components |
 | `className` | `string` | `''` | Additional CSS classes |
 
-### HologramSticker.Scene
+### HolographicSticker.Scene
 
 The 3D scene container that manages the holographic environment.
 
@@ -113,7 +113,7 @@ The 3D scene container that manages the holographic environment.
 | `children` | `ReactNode` | - | Child components (Cards) |
 | `className` | `string` | `''` | Additional CSS classes |
 
-### HologramSticker.Card
+### HolographicSticker.Card
 
 The individual sticker container that handles 3D transformations.
 
@@ -122,7 +122,7 @@ The individual sticker container that handles 3D transformations.
 | `children` | `ReactNode` | - | Child components |
 | `className` | `string` | `''` | Additional CSS classes |
 
-### HologramSticker.ImageLayer
+### HolographicSticker.ImageLayer
 
 Displays images with various blend modes and effects.
 
@@ -134,7 +134,7 @@ Displays images with various blend modes and effects.
 | `opacity` | `number` | `1` | Layer opacity (0-1) |
 | `objectFit` | `string` | `'cover'` | CSS object-fit property |
 
-### HologramSticker.Pattern
+### HolographicSticker.Pattern
 
 The holographic pattern layer container with mask and texture support.
 
@@ -149,7 +149,7 @@ The holographic pattern layer container with mask and texture support.
 | `mixBlendMode` | `string` | - | CSS mix-blend-mode |
 | `opacity` | `number` | `1` | Pattern opacity (0-1) |
 
-### HologramSticker.Refraction
+### HolographicSticker.Refraction
 
 The rainbow refraction effect component.
 
@@ -158,7 +158,7 @@ The rainbow refraction effect component.
 | `className` | `string` | `''` | Additional CSS classes |
 | `intensity` | `number` | `1` | Refraction intensity |
 
-### HologramSticker.Content
+### HolographicSticker.Content
 
 Container for overlay content and additional image layers.
 
@@ -167,7 +167,7 @@ Container for overlay content and additional image layers.
 | `children` | `ReactNode` | - | Child components |
 | `className` | `string` | `''` | Additional CSS classes |
 
-### HologramSticker.Controls
+### HolographicSticker.Controls
 
 Interactive controls for customizing the holographic effects.
 
@@ -175,7 +175,7 @@ Interactive controls for customizing the holographic effects.
 |------|------|---------|-------------|
 | `className` | `string` | `''` | Additional CSS classes |
 
-### HologramSticker.Minimap
+### HolographicSticker.Minimap
 
 Navigation minimap for the holographic scene.
 
@@ -188,35 +188,35 @@ Navigation minimap for the holographic scene.
 ### Basic Usage
 
 ```tsx
-import HologramSticker from 'hologram-sticker';
+import HolographicSticker from 'holographic-sticker';
 
 function BasicExample() {
   return (
-    <HologramSticker.Root>
-      <HologramSticker.Scene>
-        <HologramSticker.Card className="border border-white rounded-2xl">
-          <HologramSticker.ImageLayer 
+    <HolographicSticker.Root>
+      <HolographicSticker.Scene>
+        <HolographicSticker.Card className="border border-white rounded-2xl">
+          <HolographicSticker.ImageLayer 
             src="/image.jpg" 
             alt="Example"
             objectFit="contain"
           />
-          <HologramSticker.Pattern
+          <HolographicSticker.Pattern
             maskUrl="/image.jpg"
             maskSize="contain"
           >
-            <HologramSticker.Refraction />
-          </HologramSticker.Pattern>
-          <HologramSticker.Content>
-            <HologramSticker.ImageLayer 
+            <HolographicSticker.Refraction />
+          </HolographicSticker.Pattern>
+          <HolographicSticker.Content>
+            <HolographicSticker.ImageLayer 
               src="/image.jpg" 
               alt="" 
               opacity={0.2}
               objectFit="contain"
             />
-          </HologramSticker.Content>
-        </HologramSticker.Card>
-      </HologramSticker.Scene>
-    </HologramSticker.Root>
+          </HolographicSticker.Content>
+        </HolographicSticker.Card>
+      </HolographicSticker.Scene>
+    </HolographicSticker.Root>
   );
 }
 ```
@@ -226,37 +226,37 @@ function BasicExample() {
 ```tsx
 function FullFeaturedExample() {
   return (
-    <HologramSticker.Root>
-      <HologramSticker.Controls />
-      <HologramSticker.Minimap />
-      <HologramSticker.Scene>
-        <HologramSticker.Card className="border-2 border-white/20 rounded-3xl">
-          <HologramSticker.ImageLayer 
+    <HolographicSticker.Root>
+      <HolographicSticker.Controls />
+      <HolographicSticker.Minimap />
+      <HolographicSticker.Scene>
+        <HolographicSticker.Card className="border-2 border-white/20 rounded-3xl">
+          <HolographicSticker.ImageLayer 
             src="/fire.png" 
             alt="Fire"
             objectFit="contain"
             className="brightness-110"
           />
-          <HologramSticker.Pattern 
+          <HolographicSticker.Pattern 
             maskUrl="/fire.png"
             maskSize="contain"
             textureUrl="https://assets.codepen.io/605876/figma-texture.png"
             mixBlendMode="hard-light"
             opacity={0.6}
           >
-            <HologramSticker.Refraction intensity={2} />
-          </HologramSticker.Pattern>
-          <HologramSticker.Content>
-            <HologramSticker.ImageLayer 
+            <HolographicSticker.Refraction intensity={2} />
+          </HolographicSticker.Pattern>
+          <HolographicSticker.Content>
+            <HolographicSticker.ImageLayer 
               src="/fire.png"
               alt=""
               opacity={0.3}
               objectFit="contain"
             />
-          </HologramSticker.Content>
-        </HologramSticker.Card>
-      </HologramSticker.Scene>
-    </HologramSticker.Root>
+          </HolographicSticker.Content>
+        </HolographicSticker.Card>
+      </HolographicSticker.Scene>
+    </HolographicSticker.Root>
   );
 }
 ```
@@ -272,32 +272,32 @@ function Gallery() {
   ];
 
   return (
-    <HologramSticker.Root>
-      <HologramSticker.Controls />
-      <HologramSticker.Scene>
+    <HolographicSticker.Root>
+      <HolographicSticker.Controls />
+      <HolographicSticker.Scene>
         <div className="flex gap-8 justify-center">
           {cards.map((card, index) => (
-            <HologramSticker.Card key={index} className="border border-white/20 rounded-2xl">
-              <HologramSticker.ImageLayer {...card} objectFit="contain" />
-              <HologramSticker.Pattern
+            <HolographicSticker.Card key={index} className="border border-white/20 rounded-2xl">
+              <HolographicSticker.ImageLayer {...card} objectFit="contain" />
+              <HolographicSticker.Pattern
                 maskUrl={card.src}
                 maskSize="contain"
               >
-                <HologramSticker.Refraction />
-              </HologramSticker.Pattern>
-              <HologramSticker.Content>
-                <HologramSticker.ImageLayer 
+                <HolographicSticker.Refraction />
+              </HolographicSticker.Pattern>
+              <HolographicSticker.Content>
+                <HolographicSticker.ImageLayer 
                   src={card.src} 
                   alt="" 
                   opacity={0.2}
                   objectFit="contain"
                 />
-              </HologramSticker.Content>
-            </HologramSticker.Card>
+              </HolographicSticker.Content>
+            </HolographicSticker.Card>
           ))}
         </div>
-      </HologramSticker.Scene>
-    </HologramSticker.Root>
+      </HolographicSticker.Scene>
+    </HolographicSticker.Root>
   );
 }
 ```
@@ -307,16 +307,16 @@ function Gallery() {
 You can customize the appearance using CSS custom properties:
 
 ```css
-.hologram-sticker-card {
+.holographic-sticker-card {
   --hologram-rotate-x: 30deg;  /* X-axis rotation intensity */
   --hologram-rotate-y: -25deg; /* Y-axis rotation intensity */
 }
 
-.hologram-sticker-pattern {
+.holographic-sticker-pattern {
   --pattern-intensity: 0.6; /* Pattern opacity */
 }
 
-.hologram-sticker-overlay {
+.holographic-sticker-overlay {
   --overlay-opacity: 0.3; /* Overlay opacity */
 }
 ```
@@ -338,4 +338,4 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 🐛 Issues
 
-Found a bug? Please [create an issue](https://github.com/LAWTED/hologram-sticker/issues).
+Found a bug? Please [create an issue](https://github.com/LAWTED/holographic-sticker/issues).

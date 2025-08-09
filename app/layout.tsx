@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Hologram Sticker - React Component Library",
+  title: "Holographic Sticker - React Component Library",
   description: "A React component library for creating stunning holographic sticker effects. Interactive, customizable, and performant.",
 };
 

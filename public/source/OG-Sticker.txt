@@ -1,40 +1,40 @@
 "use client";
-import HologramSticker from "hologram-sticker";
+import HolographicSticker from "holographic-sticker";
 
 const OGSticker = () => {
   return (
-    <HologramSticker.Root>
-      <HologramSticker.Controls />
-      <HologramSticker.Minimap />
-      <HologramSticker.Scene>
+    <HolographicSticker.Root>
+      <HolographicSticker.Controls />
+      <HolographicSticker.Minimap />
+      <HolographicSticker.Scene>
         {/* First Card - Jhey Tompkins */}
-        <HologramSticker.Card>
+        <HolographicSticker.Card>
           {/* Layer 1: Base image */}
-          <HologramSticker.ImageLayer
+          <HolographicSticker.ImageLayer
             src="https://assets.codepen.io/605876/headshot--square.jpeg"
             alt="Person"
             parallax={true}
           />
 
           {/* Layer 2: Pattern holographic effect */}
-          <HologramSticker.Pattern
+          <HolographicSticker.Pattern
             textureUrl="https://assets.codepen.io/605876/figma-texture.png"
             opacity={0.4}
             mixBlendMode="multiply"
           >
-            <HologramSticker.Refraction intensity={1} />
-          </HologramSticker.Pattern>
+            <HolographicSticker.Refraction intensity={1} />
+          </HolographicSticker.Pattern>
 
           {/* Layer 3: Watermark effect */}
-          <HologramSticker.Watermark
+          <HolographicSticker.Watermark
             imageUrl="https://assets.codepen.io/605876/shopify-pattern.svg"
             opacity={1}
           >
-            <HologramSticker.Refraction intensity={1} />
-          </HologramSticker.Watermark>
+            <HolographicSticker.Refraction intensity={1} />
+          </HolographicSticker.Watermark>
 
           {/* Layer 4: Content with custom emboss frame */}
-          <HologramSticker.Content>
+          <HolographicSticker.Content>
             <div
               style={{
                 position: "absolute",
@@ -149,21 +149,21 @@ const OGSticker = () => {
               </div>
 
               {/* Portrait image */}
-              <HologramSticker.ImageLayer
+              <HolographicSticker.ImageLayer
                 src="https://assets.codepen.io/605876/headshot--square-transparent.png"
                 alt=""
                 parallax={true}
               />
             </div>
-          </HologramSticker.Content>
+          </HolographicSticker.Content>
 
           {/* Layer 5: Spotlight */}
-          <HologramSticker.Spotlight intensity={1} />
+          <HolographicSticker.Spotlight intensity={1} />
 
           {/* Layer 6: Glare effect */}
-          <HologramSticker.Glare />
-        </HologramSticker.Card>
-      </HologramSticker.Scene>
+          <HolographicSticker.Glare />
+        </HolographicSticker.Card>
+      </HolographicSticker.Scene>
 
       {/* SVG Filters */}
       <svg className="sr-only" xmlns="http://www.w3.org/2000/svg">
@@ -218,7 +218,7 @@ const OGSticker = () => {
           </filter>
         </defs>
       </svg>
-    </HologramSticker.Root>
+    </HolographicSticker.Root>
   );
 };
 

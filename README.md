@@ -1,11 +1,11 @@
-# Hologram Sticker
+# Holographic Sticker
 
 A React component library for creating stunning holographic sticker effects. Interactive, customizable, and performant.
 
 ## Installation
 
 ```bash
-npm install hologram-sticker
+npm install holographic-sticker
 ```
 
 ## Features
@@ -20,7 +20,7 @@ npm install hologram-sticker
 ## Quick Start
 
 ```tsx
-import HologramSticker from "hologram-sticker";
+import HologramSticker from "holographic-sticker";
 
 export default function MySticker() {
   return (
@@ -87,5 +87,5 @@ This project is inspired by [@jh3yy](https://x.com/jh3yy)'s incredible [holograp
 
 ## Links
 
-- [GitHub Repository](https://github.com/LAWTED/hologram-sticker)
-- [npm Package](https://www.npmjs.com/package/hologram-sticker)
+- [GitHub Repository](https://github.com/LAWTED/holographic-sticker)
+- [npm Package](https://www.npmjs.com/package/holographic-sticker)

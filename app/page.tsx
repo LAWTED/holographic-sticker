@@ -103,7 +103,7 @@ export default function Home() {
       {/* Header */}
       <div className="max-w-4xl mx-auto px-6 py-12">
         <div className="mb-16">
-          <h1 className="text-4xl font-bold mb-4">Hologram Sticker</h1>
+          <h1 className="text-4xl font-bold mb-4">Holographic Sticker</h1>
           <p className="text-neutral-400 text-lg max-w-2xl">
             A React component library for creating stunning holographic sticker
             effects. Interactive, customizable, and performant.
@@ -134,7 +134,7 @@ export default function Home() {
         <div className="mb-12">
           <div className="inline-flex items-center gap-2 bg-neutral-900 px-4 py-2 rounded-lg font-mono text-sm">
             <span className="text-neutral-500">$</span>
-            <span>npm install hologram-sticker</span>
+            <span>npm install holographic-sticker</span>
           </div>
         </div>
 
@@ -285,7 +285,7 @@ export default function Home() {
             </div>
             <div className="flex gap-6">
               <a
-                href="https://github.com/lawtedwu/hologram-sticker"
+                href="https://github.com/lawtedwu/holographic-sticker"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm text-neutral-400 hover:text-white transition-colors"
@@ -293,7 +293,7 @@ export default function Home() {
                 GitHub
               </a>
               <a
-                href="https://www.npmjs.com/package/hologram-sticker"
+                href="https://www.npmjs.com/package/holographic-sticker"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm text-neutral-400 hover:text-white transition-colors"
