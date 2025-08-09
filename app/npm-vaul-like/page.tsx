@@ -18,8 +18,8 @@ const NpmVaulLike = () => {
       }}
     >
       <HologramSticker.Root theme="dark">
-        {/* <HologramSticker.Controls />
-        <HologramSticker.Minimap /> */}
+        <HologramSticker.Controls />
+        <HologramSticker.Minimap />
         <HologramSticker.Scene>
           {/* First Card - Jhey Tompkins */}
           <HologramSticker.Card>
@@ -46,13 +46,53 @@ const NpmVaulLike = () => {
               <HologramSticker.Refraction intensity={1} />
             </HologramSticker.Watermark>
 
-            {/* Layer 4: Frame with content */}
-            <HologramSticker.Frame emboss>
+            {/* Layer 4: Frame with emboss effect */}
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                zIndex: 2,
+                borderRadius: "8cqi",
+                opacity: 1,
+                filter: "url(#hologram-lighting)",
+                clipPath: "inset(0 0 0 0 round 8cqi)",
+              }}
+            >
+              {/* Emboss border */}
               <div
                 style={{
                   position: "absolute",
-                  top: "var(--sticker-card-border-radius)",
-                  right: "var(--sticker-card-border-radius)",
+                  inset: "-1px",
+                  border: "calc((8cqi * 0.5) + 1px) solid hsl(0 0% 25%)",
+                  borderRadius: "8cqi",
+                  zIndex: 99,
+                }}
+              />
+
+              {/* Copyright text */}
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: 0,
+                  left: "50%",
+                  height: "calc(8cqi * 0.5)",
+                  display: "flex",
+                  alignItems: "center",
+                  transform: "translateX(-50%)",
+                  color: "#fff",
+                  fontSize: "1.5cqi",
+                  opacity: 0.8,
+                  zIndex: 100,
+                }}
+              >
+                TechTrades © 2025
+              </div>
+
+              <div
+                style={{
+                  position: "absolute",
+                  top: "8cqi",
+                  right: "8cqi",
                   textAlign: "right",
                   letterSpacing: "-0.05em",
                   fontWeight: 1000,
@@ -63,7 +103,7 @@ const NpmVaulLike = () => {
               >
                 <span
                   style={{
-                    filter: "url(#sticker-filter)",
+                    filter: "url(#hologram-sticker)",
                     fontSize: "10cqi",
                     display: "block",
                   }}
@@ -72,7 +112,7 @@ const NpmVaulLike = () => {
                 </span>
                 <span
                   style={{
-                    filter: "url(#sticker-filter)",
+                    filter: "url(#hologram-sticker)",
                     fontSize: "5cqi",
                     display: "block",
                   }}
@@ -88,8 +128,8 @@ const NpmVaulLike = () => {
                   position: "absolute",
                   zIndex: 100,
                   width: "38cqi",
-                  bottom: "calc(var(--sticker-card-border-radius) * 1.1)",
-                  right: "calc(var(--sticker-card-border-radius) * 0.6)",
+                  bottom: "calc(8cqi * 1.1)",
+                  right: "calc(8cqi * 0.6)",
                   rotate: "20deg",
                 }}
                 viewBox="0 0 271 209"
@@ -111,9 +151,9 @@ const NpmVaulLike = () => {
               <div
                 style={{
                   position: "absolute",
-                  width: "calc(var(--sticker-card-border-radius) * 2.75)",
-                  bottom: "calc(var(--sticker-card-border-radius) * 0.75)",
-                  left: "calc(var(--sticker-card-border-radius) * 0.65)",
+                  width: "calc(8cqi * 2.75)",
+                  bottom: "calc(8cqi * 0.75)",
+                  left: "calc(8cqi * 0.65)",
                   zIndex: 100,
                 }}
               >
@@ -125,7 +165,7 @@ const NpmVaulLike = () => {
                 src="https://assets.codepen.io/605876/headshot--square-transparent.png"
                 alt=""
               />
-            </HologramSticker.Frame>
+            </div>
 
             {/* Layer 5: Spotlight */}
             <HologramSticker.Spotlight intensity={1} />
@@ -134,53 +174,60 @@ const NpmVaulLike = () => {
             <HologramSticker.Glare animate />
           </HologramSticker.Card>
         </HologramSticker.Scene>
-      </HologramSticker.Root>
 
-      <HologramSticker.Root theme="dark">
-        {/* <HologramSticker.Controls />
-        <HologramSticker.Minimap /> */}
-        <HologramSticker.Scene>
-          {/* Second Card - Simple */}
-          <HologramSticker.Card>
-            {/* Layer 1: Base image */}
-            <HologramSticker.ImageLayer
-              src="https://assets.codepen.io/605876/headshot--square.jpeg"
-              alt="Person"
-            />
-
-            {/* Layer 2: Pattern holographic effect */}
-            <HologramSticker.Pattern
-              textureUrl="https://assets.codepen.io/605876/figma-texture.png"
-              opacity={0.4}
-              mixBlendMode="multiply"
-            >
-              <HologramSticker.Refraction intensity={1} />
-            </HologramSticker.Pattern>
-
-            {/* Layer 3: Watermark effect */}
-            <HologramSticker.Watermark
-              imageUrl="https://assets.codepen.io/605876/shopify-pattern.svg"
-              opacity={1}
-            >
-              <HologramSticker.Refraction intensity={1} />
-            </HologramSticker.Watermark>
-
-            {/* Layer 4: Frame with content */}
-            <HologramSticker.Frame emboss>
-              {/* Portrait image */}
-              <HologramSticker.ImageLayer
-                src="https://assets.codepen.io/605876/headshot--square-transparent.png"
-                alt=""
+        {/* SVG Filters */}
+        <svg className="sr-only" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <filter id="hologram-lighting">
+              <feGaussianBlur in="SourceAlpha" stdDeviation="2" result="blur" />
+              <feSpecularLighting
+                result="lighting"
+                in="blur"
+                surfaceScale="8"
+                specularConstant="12"
+                specularExponent="120"
+                lightingColor="hsl(0 0% 6%)"
+              >
+                <fePointLight x="50" y="50" z="300" />
+              </feSpecularLighting>
+              <feComposite
+                in="lighting"
+                in2="SourceAlpha"
+                operator="in"
+                result="composite"
               />
-            </HologramSticker.Frame>
-
-            {/* Layer 5: Spotlight */}
-            <HologramSticker.Spotlight intensity={1} />
-
-            {/* Layer 6: Glare effect */}
-            <HologramSticker.Glare animate />
-          </HologramSticker.Card>
-        </HologramSticker.Scene>
+              <feComposite
+                in="SourceGraphic"
+                in2="composite"
+                operator="arithmetic"
+                k1="0"
+                k2="1"
+                k3="1"
+                k4="0"
+                result="litPaint"
+              />
+            </filter>
+            <filter id="hologram-sticker">
+              <feMorphology
+                in="SourceAlpha"
+                result="dilate"
+                operator="dilate"
+                radius="2"
+              />
+              <feFlood floodColor="hsl(0 0% 100%)" result="outlinecolor" />
+              <feComposite
+                in="outlinecolor"
+                in2="dilate"
+                operator="in"
+                result="outlineflat"
+              />
+              <feMerge result="merged">
+                <feMergeNode in="outlineflat" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+        </svg>
       </HologramSticker.Root>
     </div>
   );
