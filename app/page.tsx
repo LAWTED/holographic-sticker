@@ -131,11 +131,20 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="mb-12">
+        <div className="mb-12 flex flex-col sm:flex-row gap-4 items-start sm:items-center">
           <div className="inline-flex items-center gap-2 bg-neutral-900 px-4 py-2 rounded-lg font-mono text-sm">
             <span className="text-neutral-500">$</span>
             <span>npm install holographic-sticker</span>
           </div>
+          <Link
+            href="/sticker-editor"
+            className="inline-flex items-center gap-2 bg-white text-black px-4 py-2 rounded-lg font-medium text-sm hover:bg-neutral-100 transition-colors"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+            Try Sticker Editor
+          </Link>
         </div>
 
         {/* Examples */}
