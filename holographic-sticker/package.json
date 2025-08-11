@@ -1,6 +1,6 @@
 {
   "name": "holographic-sticker",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "type": "module",
   "description": "A React component library for creating holographic sticker effects",
   "main": "dist/index.js",
@@ -52,5 +52,7 @@
     "rollup-plugin-postcss": "^4.0.2",
     "typescript": "^5.3.3"
   },
-  "dependencies": {}
+  "dependencies": {
+    "holographic-sticker": "file:holographic-sticker"
+  }
 }

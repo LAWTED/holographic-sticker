@@ -5,6 +5,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import { Edit, Check, Copy, ExternalLink } from "lucide-react";
 
 // 动态导入贴纸组件
 const LightningSticker = dynamic(() => import("./lightning-sticker/page"), {
@@ -131,20 +132,61 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="mb-12 flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-          <div className="inline-flex items-center gap-2 bg-neutral-900 px-4 py-2 rounded-lg font-mono text-sm">
-            <span className="text-neutral-500">$</span>
-            <span>npm install holographic-sticker</span>
+        <div className="mb-12 space-y-8">
+          {/* Getting Started Section */}
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* For Developers */}
+            <div className="space-y-4">
+              <div className="flex items-center gap-2 mb-3">
+                <Copy size={18} className="text-neutral-400" />
+                <h3 className="text-lg font-semibold">For Developers</h3>
+              </div>
+              <p className="text-neutral-400 text-sm">
+                Install the package and integrate holographic stickers into your React project with full customization control.
+              </p>
+              <div className="inline-flex items-center gap-2 bg-neutral-900 px-4 py-2 rounded-lg font-mono text-sm relative group">
+                <span className="text-neutral-500">$</span>
+                <span>npm install holographic-sticker</span>
+                <button
+                  onClick={() => copyToClipboard("npm install holographic-sticker", "npm-install")}
+                  className="ml-2 p-1 opacity-0 group-hover:opacity-100 hover:bg-neutral-800 rounded transition-all"
+                  title={copiedStates["npm-install"] ? "Copied!" : "Copy command"}
+                >
+                  {copiedStates["npm-install"] ? (
+                    <Check size={14} className="text-green-400" />
+                  ) : (
+                    <Copy size={14} className="text-neutral-400" />
+                  )}
+                </button>
+              </div>
+              <p className="text-neutral-500 text-xs">
+                → Check out the code examples below
+              </p>
+            </div>
+
+            {/* For Designers */}
+            <div className="space-y-4">
+              <div className="flex items-center gap-2 mb-3">
+                <Edit size={18} className="text-neutral-400" />
+                <h3 className="text-lg font-semibold">For Designers</h3>
+              </div>
+              <p className="text-neutral-400 text-sm">
+                Use our interactive editor to experiment with different effects, customize layers, and see changes in real-time.
+              </p>
+              <div className="inline-flex items-center bg-neutral-800 px-4 py-2 rounded-lg text-sm border border-neutral-700">
+                <Link
+                  href="/sticker-editor"
+                  target="_blank"
+                  className="text-white hover:text-neutral-300 transition-colors font-medium"
+                >
+                  Open Interactive Editor
+                </Link>
+              </div>
+              <p className="text-neutral-500 text-xs">
+                → No coding required, visual interface
+              </p>
+            </div>
           </div>
-          <Link
-            href="/sticker-editor"
-            className="inline-flex items-center gap-2 bg-white text-black px-4 py-2 rounded-lg font-medium text-sm hover:bg-neutral-100 transition-colors"
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-            </svg>
-            Try Sticker Editor
-          </Link>
         </div>
 
         {/* Examples */}
@@ -178,13 +220,22 @@ export default function Home() {
                 >
                   Code
                 </button>
-                <div className="ml-auto">
+                <div className="ml-auto flex items-center gap-4">
+                  <div className="inline-flex items-center bg-neutral-800 px-3 py-1.5 rounded-md text-sm border border-neutral-700">
+                    <Link
+                      href={`/sticker-editor?sticker=${example.id}`}
+                      className="text-white hover:text-neutral-300 transition-colors font-medium"
+                    >
+                      Open in Editor
+                    </Link>
+                  </div>
                   <Link
                     href={example.href}
                     target="_blank"
-                    className="text-sm text-neutral-400 hover:text-white transition-colors"
+                    className="inline-flex items-center gap-1 text-sm text-neutral-400 hover:text-white transition-colors"
                   >
-                    Open in new tab →
+                    Open in new tab
+                    <ExternalLink size={12} />
                   </Link>
                 </div>
               </div>
@@ -221,35 +272,9 @@ export default function Home() {
                       title={copiedStates[example.id] ? "Copied!" : "Copy code"}
                     >
                       {copiedStates[example.id] ? (
-                        <svg
-                          width="16"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                        >
-                          <path d="M20 6L9 17l-5-5" />
-                        </svg>
+                        <Check size={16} />
                       ) : (
-                        <svg
-                          width="16"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                        >
-                          <rect
-                            x="9"
-                            y="9"
-                            width="13"
-                            height="13"
-                            rx="2"
-                            ry="2"
-                          />
-                          <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
-                        </svg>
+                        <Copy size={16} />
                       )}
                     </button>
 

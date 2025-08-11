@@ -26,13 +26,13 @@ export const stickerConfigs: Record<string, StickerConfig> = {
         props: {
           maskUrl: '/light.png',
           maskSize: 'contain',
-          textureUrl: 'https://assets.codepen.io/605876/figma-texture.png',
+          texture: 'https://assets.codepen.io/605876/figma-texture.png',
           textureSize: '6cqi',
           mixBlendMode: 'hard-light',
           opacity: 0.7,
           intensity: 2
         },
-        editableProps: ['opacity', 'intensity', 'mixBlendMode']
+        editableProps: ['maskUrl', 'texture', 'textureSize', 'opacity', 'intensity', 'mixBlendMode']
       },
       {
         id: 'overlay-image',
@@ -72,12 +72,13 @@ export const stickerConfigs: Record<string, StickerConfig> = {
         name: 'Holographic Pattern',
         visible: true,
         props: {
-          textureUrl: 'https://assets.codepen.io/605876/figma-texture.png',
+          texture: 'https://assets.codepen.io/605876/figma-texture.png',
+          textureSize: '4cqi',
           opacity: 0.4,
           mixBlendMode: 'multiply',
           intensity: 1
         },
-        editableProps: ['opacity', 'intensity', 'mixBlendMode']
+        editableProps: ['texture', 'textureSize', 'opacity', 'intensity', 'mixBlendMode']
       },
       {
         id: 'watermark',

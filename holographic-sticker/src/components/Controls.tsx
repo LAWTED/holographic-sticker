@@ -15,7 +15,7 @@ const Controls: React.FC<ControlsProps> = ({
     <div className={`sticker-controls ${className}`} {...props}>
       <button
         onClick={() => setIsExploded(!isExploded)}
-        className="rounded-lg border border-white/50 px-2 py-1"
+        className="rounded-lg border border-neutral-700 bg-neutral-800 px-3 py-1.5 text-white hover:text-neutral-300 transition-colors"
         type="button"
       >
         {isExploded ? '📦 Collapse' : '💥 Explode'}

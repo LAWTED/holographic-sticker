@@ -10,6 +10,8 @@ interface PreviewPaneProps {
   onNext: () => void;
   currentIndex: number;
   totalCount: number;
+  showMinimap: boolean;
+  showControls: boolean;
 }
 
 export default function PreviewPane({
@@ -19,19 +21,31 @@ export default function PreviewPane({
   onNext,
   currentIndex,
   totalCount,
+  showMinimap,
+  showControls,
 }: PreviewPaneProps) {
   const renderSticker = () => {
     if (!stickerConfig) return null;
 
     if (stickerConfig.id === "lightning-sticker") {
       return (
-        <LightningPreview config={stickerConfig} properties={layerProperties} />
+        <LightningPreview 
+          config={stickerConfig} 
+          properties={layerProperties}
+          showMinimap={showMinimap}
+          showControls={showControls}
+        />
       );
     }
 
     if (stickerConfig.id === "lawted-sticker") {
       return (
-        <LawtedPreview config={stickerConfig} properties={layerProperties} />
+        <LawtedPreview 
+          config={stickerConfig} 
+          properties={layerProperties}
+          showMinimap={showMinimap}
+          showControls={showControls}
+        />
       );
     }
 
@@ -53,7 +67,7 @@ export default function PreviewPane({
                 <path d="M15 18l-6-6 6-6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </button>
-            
+
             <div className="text-center">
               <h2 className="text-xl font-bold text-white">
                 {stickerConfig?.name}
@@ -62,7 +76,7 @@ export default function PreviewPane({
                 {currentIndex + 1} of {totalCount}
               </div>
             </div>
-            
+
             <button
               onClick={onNext}
               className="w-8 h-8 bg-neutral-800 hover:bg-neutral-700 rounded-full flex items-center justify-center transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
@@ -73,7 +87,7 @@ export default function PreviewPane({
               </svg>
             </button>
           </div>
-          
+
           <div className="text-sm text-neutral-500">Live Preview</div>
         </div>
       </div>
@@ -100,9 +114,11 @@ export default function PreviewPane({
 interface PreviewProps {
   config: StickerConfig;
   properties: Record<string, Record<string, unknown>>;
+  showMinimap: boolean;
+  showControls: boolean;
 }
 
-function LightningPreview({ config, properties }: PreviewProps) {
+function LightningPreview({ config, properties, showMinimap, showControls }: PreviewProps) {
   const getLayerProp = (
     layerId: string,
     propName: string,
@@ -121,10 +137,10 @@ function LightningPreview({ config, properties }: PreviewProps) {
 
   return (
     <HolographicSticker.Root>
-      <HolographicSticker.Controls />
-      <HolographicSticker.Minimap />
+      {showControls && <HolographicSticker.Controls />}
+      {showMinimap && <HolographicSticker.Minimap />}
       <HolographicSticker.Scene>
-        <HolographicSticker.Card className="border border-white rounded-2xl">
+        <HolographicSticker.Card>
           {/* Background Image Layer */}
           {isLayerVisible("background-image") && (
             <HolographicSticker.ImageLayer
@@ -145,7 +161,7 @@ function LightningPreview({ config, properties }: PreviewProps) {
               maskSize={getLayerProp("pattern", "maskSize", "contain") as string}
               textureUrl={getLayerProp(
                 "pattern",
-                "textureUrl",
+                "texture",
                 "https://assets.codepen.io/605876/figma-texture.png"
               ) as string}
               textureSize={getLayerProp("pattern", "textureSize", "6cqi") as string}
@@ -183,7 +199,7 @@ function LightningPreview({ config, properties }: PreviewProps) {
   );
 }
 
-function LawtedPreview({ config, properties }: PreviewProps) {
+function LawtedPreview({ config, properties, showMinimap, showControls }: PreviewProps) {
   const getLayerProp = (
     layerId: string,
     propName: string,
@@ -202,8 +218,8 @@ function LawtedPreview({ config, properties }: PreviewProps) {
 
   return (
     <HolographicSticker.Root>
-      <HolographicSticker.Controls />
-      <HolographicSticker.Minimap />
+      {showControls && <HolographicSticker.Controls />}
+      {showMinimap && <HolographicSticker.Minimap />}
       <HolographicSticker.Scene>
         <HolographicSticker.Card>
           {/* Base Image Layer */}
@@ -220,9 +236,10 @@ function LawtedPreview({ config, properties }: PreviewProps) {
             <HolographicSticker.Pattern
               textureUrl={getLayerProp(
                 "pattern",
-                "textureUrl",
+                "texture",
                 "https://assets.codepen.io/605876/figma-texture.png"
               ) as string}
+              textureSize={getLayerProp("pattern", "textureSize", "4cqi") as string}
               opacity={getLayerProp("pattern", "opacity", 0.4) as number}
               mixBlendMode={getLayerProp("pattern", "mixBlendMode", "multiply") as any}
             >

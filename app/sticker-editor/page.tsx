@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 import LayerPanel from './components/LayerPanel';
 import PreviewPane from './components/PreviewPane';
 import { stickerConfigs } from './config/stickers';
@@ -15,14 +16,37 @@ const getPropertyType = (propName: string, value: unknown): PropertyValue['type'
 };
 
 export default function StickerEditor() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const stickerIds = Object.keys(stickerConfigs);
-  const [currentStickerIndex, setCurrentStickerIndex] = useState(0);
+  
+  // Get initial sticker from URL parameter or default to first one
+  const getStickerFromParams = () => {
+    const stickerParam = searchParams.get('sticker');
+    if (stickerParam && stickerIds.includes(stickerParam)) {
+      return stickerParam;
+    }
+    return stickerIds[0];
+  };
+
+  const getInitialIndex = () => {
+    const stickerParam = searchParams.get('sticker');
+    if (stickerParam && stickerIds.includes(stickerParam)) {
+      return stickerIds.indexOf(stickerParam);
+    }
+    return 0;
+  };
+
+  const [currentStickerIndex, setCurrentStickerIndex] = useState(getInitialIndex());
   const [state, setState] = useState<EditorState>({
-    selectedSticker: stickerIds[0],
+    selectedSticker: getStickerFromParams(),
     selectedLayer: null,
     stickerConfigs: stickerConfigs,
     layerProperties: {}
   });
+
+  const [showMinimap, setShowMinimap] = useState(true);
+  const [showControls, setShowControls] = useState(true);
 
   useEffect(() => {
     const properties: Record<string, Record<string, PropertyValue>> = {};
@@ -54,24 +78,34 @@ export default function StickerEditor() {
   const handlePrevious = () => {
     if (currentStickerIndex > 0) {
       const newIndex = currentStickerIndex - 1;
+      const newStickerId = stickerIds[newIndex];
       setCurrentStickerIndex(newIndex);
       setState(prev => ({
         ...prev,
-        selectedSticker: stickerIds[newIndex],
+        selectedSticker: newStickerId,
         selectedLayer: null
       }));
+      // Update URL parameter
+      const newParams = new URLSearchParams(searchParams);
+      newParams.set('sticker', newStickerId);
+      router.replace(`/sticker-editor?${newParams.toString()}`);
     }
   };
 
   const handleNext = () => {
     if (currentStickerIndex < stickerIds.length - 1) {
       const newIndex = currentStickerIndex + 1;
+      const newStickerId = stickerIds[newIndex];
       setCurrentStickerIndex(newIndex);
       setState(prev => ({
         ...prev,
-        selectedSticker: stickerIds[newIndex],
+        selectedSticker: newStickerId,
         selectedLayer: null
       }));
+      // Update URL parameter
+      const newParams = new URLSearchParams(searchParams);
+      newParams.set('sticker', newStickerId);
+      router.replace(`/sticker-editor?${newParams.toString()}`);
     }
   };
 
@@ -152,6 +186,10 @@ export default function StickerEditor() {
             acc[layerId] = state.layerProperties[uniqueLayerId];
             return acc;
           }, {} as Record<string, Record<string, PropertyValue>>)}
+        showMinimap={showMinimap}
+        showControls={showControls}
+        onToggleMinimap={() => setShowMinimap(!showMinimap)}
+        onToggleControls={() => setShowControls(!showControls)}
       />
       <PreviewPane
         stickerConfig={currentStickerConfig}
@@ -160,6 +198,8 @@ export default function StickerEditor() {
         onNext={handleNext}
         currentIndex={currentStickerIndex}
         totalCount={stickerIds.length}
+        showMinimap={showMinimap}
+        showControls={showControls}
       />
     </div>
   );

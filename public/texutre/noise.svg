@@ -1,0 +1,8 @@
+<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="50" height="50" fill="black" fill-opacity="0.48"/>
+<g transform="rotate(45 25 25) scale(1.2)">
+<line x1="15" y1="0" x2="15" y2="50" stroke="black" stroke-width="4"/>
+<line x1="25" y1="0" x2="25" y2="50" stroke="black" stroke-width="4"/>
+<line x1="35" y1="0" x2="35" y2="50" stroke="black" stroke-width="4"/>
+</g>
+</svg>
