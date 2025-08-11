@@ -196,6 +196,7 @@
   perspective: 1600px;
   position: relative;
   display: block;
+  overflow: hidden;
 }
 
 .sticker-card img,
