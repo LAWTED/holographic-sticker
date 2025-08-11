@@ -150,7 +150,7 @@ function LightningPreview({ config, properties, showMinimap, showControls }: Pre
                 "background-image",
                 "objectFit",
                 "contain"
-              ) as any}
+              ) as "contain" | "cover" | "fill" | "none" | "scale-down"}
             />
           )}
 
@@ -169,7 +169,7 @@ function LightningPreview({ config, properties, showMinimap, showControls }: Pre
                 "pattern",
                 "mixBlendMode",
                 "hard-light"
-              ) as any}
+              ) as "hard-light" | "multiply"}
               opacity={getLayerProp("pattern", "opacity", 0.7) as number}
             >
               <HolographicSticker.Refraction
@@ -189,7 +189,7 @@ function LightningPreview({ config, properties, showMinimap, showControls }: Pre
                   "overlay-image",
                   "objectFit",
                   "contain"
-                ) as any}
+                ) as "contain" | "cover" | "fill" | "none" | "scale-down"}
               />
             </HolographicSticker.Content>
           )}
@@ -241,7 +241,7 @@ function LawtedPreview({ config, properties, showMinimap, showControls }: Previe
               ) as string}
               textureSize={getLayerProp("pattern", "textureSize", "4cqi") as string}
               opacity={getLayerProp("pattern", "opacity", 0.4) as number}
-              mixBlendMode={getLayerProp("pattern", "mixBlendMode", "multiply") as any}
+              mixBlendMode={getLayerProp("pattern", "mixBlendMode", "multiply") as "hard-light" | "multiply"}
             >
               <HolographicSticker.Refraction
                 intensity={getLayerProp("pattern", "intensity", 1) as number}

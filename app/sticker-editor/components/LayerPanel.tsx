@@ -199,16 +199,15 @@ function LayerItem({
 interface PropertyEditorProps {
   layerId: string;
   propName: string;
-  propValue: any;
+  propValue: unknown;
   property?: PropertyValue;
-  onChange: (layerId: string, prop: string, value: any) => void;
+  onChange: (layerId: string, prop: string, value: unknown) => void;
 }
 
 function PropertyEditor({
   layerId,
   propName,
   propValue,
-  property,
   onChange,
 }: PropertyEditorProps) {
   const handleChange = (value: unknown) => {
@@ -306,7 +305,7 @@ function PropertyEditor({
       {propertyType === "text" && (
         <input
           type="text"
-          value={propValue || ""}
+          value={String(propValue || "")}
           onChange={(e) => handleChange(e.target.value)}
           className="w-full bg-neutral-700 border border-neutral-600 rounded px-2 py-1 text-white text-sm focus:outline-none focus:ring-1 focus:ring-white focus:ring-opacity-30"
         />
@@ -315,7 +314,7 @@ function PropertyEditor({
       {propertyType === "number" && (
         <input
           type="number"
-          value={propValue || 0}
+          value={Number(propValue) || 0}
           min={propName === "opacity" ? 0 : undefined}
           max={propName === "opacity" ? 1 : undefined}
           step={propName === "opacity" ? 0.1 : 1}
@@ -328,7 +327,7 @@ function PropertyEditor({
         <label className="flex items-center gap-2">
           <input
             type="checkbox"
-            checked={propValue || false}
+            checked={Boolean(propValue)}
             onChange={(e) => handleChange(e.target.checked)}
             className="w-4 h-4 text-white bg-neutral-700 border-neutral-600 rounded focus:ring-white focus:ring-opacity-30"
           />
@@ -338,7 +337,7 @@ function PropertyEditor({
 
       {propertyType === "select" && (
         <select
-          value={propValue || ""}
+          value={String(propValue || "")}
           onChange={(e) => handleChange(e.target.value)}
           className="w-full bg-neutral-700 border border-neutral-600 rounded px-2 py-1 text-white text-sm focus:outline-none focus:ring-1 focus:ring-white focus:ring-opacity-30"
         >
@@ -384,8 +383,8 @@ function PropertyEditor({
             ))}
 
             {/* Show uploaded custom texture if it exists and is not a preset */}
-            {propValue &&
-              !texturePresets.some((preset) => preset.url === propValue) && (
+            {String(propValue) &&
+              !texturePresets.some((preset) => preset.url === String(propValue)) && (
                 <div className="flex flex-col items-center space-y-1">
                   <button
                     onClick={() => handleChange(propValue)}
@@ -473,7 +472,7 @@ function PropertyEditor({
           </span>
           <input
             type="text"
-            value={propValue || ""}
+            value={String(propValue || "")}
             onChange={(e) => handleChange(e.target.value)}
             placeholder="Enter texture URL..."
             className="w-full bg-neutral-700 border border-neutral-600 rounded px-3 py-2 text-white text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-20 focus:border-neutral-500"
@@ -486,7 +485,7 @@ function PropertyEditor({
           {/* Image preview and upload */}
           <div className="flex flex-wrap gap-4">
             {/* Show current image if it exists */}
-            {propValue && (
+            {String(propValue) && (
               <div className="flex flex-col items-center space-y-1">
                 <button
                   onClick={() => handleChange(propValue)}
@@ -543,7 +542,7 @@ function PropertyEditor({
             <span className="text-xs text-neutral-400 mb-2 block">Image URL</span>
             <input
               type="text"
-              value={propValue || ""}
+              value={String(propValue || "")}
               onChange={(e) => handleChange(e.target.value)}
               placeholder="Enter image URL..."
               className="w-full bg-neutral-700 border border-neutral-600 rounded px-3 py-2 text-white text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-20 focus:border-neutral-500"
