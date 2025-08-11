@@ -51,8 +51,5 @@
     "rollup-plugin-dts": "^6.1.0",
     "rollup-plugin-postcss": "^4.0.2",
     "typescript": "^5.3.3"
-  },
-  "dependencies": {
-    "holographic-sticker": "file:holographic-sticker"
   }
 }

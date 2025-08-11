@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import LayerPanel from './components/LayerPanel';
 import PreviewPane from './components/PreviewPane';
@@ -15,7 +15,7 @@ const getPropertyType = (propName: string, value: unknown): PropertyValue['type'
   return 'text';
 };
 
-export default function StickerEditor() {
+function StickerEditorContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const stickerIds = Object.keys(stickerConfigs);
@@ -202,5 +202,17 @@ export default function StickerEditor() {
         showControls={showControls}
       />
     </div>
+  );
+}
+
+export default function StickerEditor() {
+  return (
+    <Suspense fallback={
+      <div className="flex h-screen bg-neutral-950 items-center justify-center">
+        <div className="text-white">Loading editor...</div>
+      </div>
+    }>
+      <StickerEditorContent />
+    </Suspense>
   );
 }
