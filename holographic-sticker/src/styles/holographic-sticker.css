@@ -162,6 +162,8 @@
   font-size: 0.875rem;
   pointer-events: none;
   opacity: 0.35;
+  color: white;
+  mix-blend-mode: difference;
 }
 
 .sticker-minimap__stats {
@@ -175,6 +177,7 @@
   font-family: monospace;
   font-size: 0.75rem;
   color: white;
+  mix-blend-mode: difference;
 }
 
 .sticker-minimap__stats span {
@@ -292,6 +295,7 @@
   font-size: 1.5cqi;
   opacity: 0.8;
   z-index: 100;
+  mix-blend-mode: difference;
 }
 
 .sticker-emboss::after {
@@ -665,6 +669,7 @@
   top: 100%;
   right: 0;
   color: #fff;
+  mix-blend-mode: difference;
 }
 
 .sticker-wordmark img {
@@ -693,6 +698,11 @@
   display: flex;
   gap: 0.5rem;
   transform: translate3d(0, 0, 200vmin);
+}
+
+.sticker-controls button {
+  color: white;
+  mix-blend-mode: difference;
 }
 
 /* Overlay - for backward compatibility */
