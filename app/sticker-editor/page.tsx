@@ -27,15 +27,19 @@ export default function StickerEditor() {
   useEffect(() => {
     const properties: Record<string, Record<string, PropertyValue>> = {};
     
-    Object.values(stickerConfigs).forEach(config => {
+    // Only initialize properties for layers that have unique combinations of sticker + layer
+    Object.entries(stickerConfigs).forEach(([stickerId, config]) => {
       config.layers.forEach(layer => {
-        if (!properties[layer.id]) {
-          properties[layer.id] = {};
+        // Use unique key combining sticker ID and layer ID
+        const uniqueLayerId = `${stickerId}-${layer.id}`;
+        
+        if (!properties[uniqueLayerId]) {
+          properties[uniqueLayerId] = {};
         }
         
         layer.editableProps.forEach(propName => {
           const propValue = layer.props[propName];
-          properties[layer.id][propName] = {
+          properties[uniqueLayerId][propName] = {
             type: getPropertyType(propName, propValue),
             label: propName.replace(/([A-Z])/g, ' $1').trim(),
             value: propValue
@@ -91,14 +95,16 @@ export default function StickerEditor() {
   };
 
   const handlePropertyChange = (layerId: string, propName: string, value: unknown) => {
+    const uniqueLayerId = `${state.selectedSticker}-${layerId}`;
+    
     setState(prev => ({
       ...prev,
       layerProperties: {
         ...prev.layerProperties,
-        [layerId]: {
-          ...prev.layerProperties[layerId],
+        [uniqueLayerId]: {
+          ...prev.layerProperties[uniqueLayerId],
           [propName]: {
-            ...prev.layerProperties[layerId]?.[propName],
+            ...prev.layerProperties[uniqueLayerId]?.[propName],
             value: value
           }
         }
@@ -119,13 +125,17 @@ export default function StickerEditor() {
 
   const currentStickerConfig = state.stickerConfigs[state.selectedSticker];
   
-  const layerPropertiesForPreview = Object.keys(state.layerProperties).reduce((acc, layerId) => {
-    acc[layerId] = Object.keys(state.layerProperties[layerId]).reduce((props, propName) => {
-      props[propName] = state.layerProperties[layerId][propName].value;
-      return props;
-    }, {} as Record<string, unknown>);
-    return acc;
-  }, {} as Record<string, Record<string, unknown>>);
+  const layerPropertiesForPreview = Object.keys(state.layerProperties)
+    .filter(layerId => layerId.startsWith(`${state.selectedSticker}-`))
+    .reduce((acc, uniqueLayerId) => {
+      // Extract the actual layer ID from the unique key
+      const layerId = uniqueLayerId.replace(`${state.selectedSticker}-`, '');
+      acc[layerId] = Object.keys(state.layerProperties[uniqueLayerId]).reduce((props, propName) => {
+        props[propName] = state.layerProperties[uniqueLayerId][propName].value;
+        return props;
+      }, {} as Record<string, unknown>);
+      return acc;
+    }, {} as Record<string, Record<string, unknown>>);
 
   return (
     <div className="flex h-screen bg-neutral-950">
@@ -135,7 +145,13 @@ export default function StickerEditor() {
         onLayerSelect={handleLayerSelect}
         onLayerToggle={handleLayerToggle}
         onPropertyChange={handlePropertyChange}
-        layerProperties={state.layerProperties}
+        layerProperties={Object.keys(state.layerProperties)
+          .filter(layerId => layerId.startsWith(`${state.selectedSticker}-`))
+          .reduce((acc, uniqueLayerId) => {
+            const layerId = uniqueLayerId.replace(`${state.selectedSticker}-`, '');
+            acc[layerId] = state.layerProperties[uniqueLayerId];
+            return acc;
+          }, {} as Record<string, Record<string, PropertyValue>>)}
       />
       <PreviewPane
         stickerConfig={currentStickerConfig}
