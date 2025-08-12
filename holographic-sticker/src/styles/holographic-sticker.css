@@ -37,7 +37,6 @@
 *::before,
 *::after {
   box-sizing: border-box;
-  transform-style: preserve-3d;
 }
 
 /* Utilities */
@@ -190,6 +189,7 @@
   width: var(--sticker-card-width);
   container-type: inline-size;
   background: transparent;
+  transform-style: preserve-3d;
   color: hsl(0 0% 10%);
   font-family: "Sora", system-ui, -apple-system, "Segoe UI", "Roboto",
     sans-serif;
