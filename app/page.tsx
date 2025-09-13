@@ -319,7 +319,7 @@ export default function Home() {
             </div>
             <div className="flex gap-6">
               <a
-                href="https://github.com/lawtedwu/holographic-sticker"
+                href="https://github.com/LAWTED/holographic-sticker"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm text-neutral-400 hover:text-white transition-colors"
